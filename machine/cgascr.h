@@ -13,23 +13,24 @@
 /* schirmspeicher bzw. die I/O-Ports der Grafikkarte.                        */
 /*****************************************************************************/
 
-#include "machine/io_port.h"
+#include "io_port.h"
 
-class CGA_Screen
- {
+class CGA_Screen {
 private:
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
 
-   CGA_Screen(const CGA_Screen &copy); // Verhindere Kopieren
+
+  CGA_Screen(const CGA_Screen &copy); // Verhindere Kopieren
 public:
-   CGA_Screen()
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- {}
+  CGA_Screen() {}
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- };
+  void show(int x, int y, char c, unsigned char attrib);
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+  void setpos(int x, int y);
+
+  void getpos(int &x, int &y);
+
+  void print(char *text, int length, unsigned char attrib);
+};
 
 #endif
 

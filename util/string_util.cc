@@ -16,3 +16,4 @@ int string_contains(char *str, unsigned length, char c) {
   }
   return count;
 }
+
