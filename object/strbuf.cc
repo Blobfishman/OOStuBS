@@ -15,32 +15,19 @@
 
 #include "object/strbuf.h"
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+Stringbuffer::Stringbuffer() {}
 
-Stringbuffer::Stringbuffer(){
-    buffer_size = 100;
-    this->cleanBuffer();
+void Stringbuffer::put(char c) {
+    if (current_index >= buffer_size) {
+        flush();
+    }
+    buffer[current_index++] = c;
 }
 
-void Stringbuffer::put(char c){
+void Stringbuffer::cleanBuffer() {
+    current_index = 0;
 
-    if(current_index < buffer_size){
-        buffer[current_index] = c;
-        current_index++;
-    }
-    else
-    {
-        //testwert
-        current_index = 99;
-    }
-    
-
-}
-
-void Stringbuffer::cleanBuffer(){
-    int current_index = 0;
-
-    for (int i = 0; i < buffer_size; i++){
+    for (int i = 0; i < buffer_size; i++) {
         buffer[i] = '0';
     }
 }
