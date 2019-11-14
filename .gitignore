@@ -35,3 +35,6 @@
 isofiles/*
 build/*
 deb/*
+
+# vim files
+*.swp
