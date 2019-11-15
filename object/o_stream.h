@@ -21,25 +21,38 @@
 
 #include "object/strbuf.h"
 
+enum class PositionalNumeralSystem { bin, dec, oct, hex };
+
 class O_Stream : public Stringbuffer {
    private:
     O_Stream(const O_Stream& copy);  // Verhindere Kopieren
+
+    void convert_put(long power, long value);
+
+    PositionalNumeralSystem system = PositionalNumeralSystem::dec;
+
    public:
     O_Stream();
 
-    void flush() override;
+    void set_system(PositionalNumeralSystem sys);
+
+    PositionalNumeralSystem get_system();
+
+    void flush() = 0;
 
     O_Stream& operator<<(unsigned char c);
-    O_Stream& operator<<(char c);
     O_Stream& operator<<(unsigned short number);
-    O_Stream& operator<<(short number);
     O_Stream& operator<<(unsigned int number);
-    O_Stream& operator<<(int number);
     O_Stream& operator<<(unsigned long number);
+
+    O_Stream& operator<<(char c);
+    O_Stream& operator<<(short number);
+    O_Stream& operator<<(int number);
     O_Stream& operator<<(long number);
+
     O_Stream& operator<<(void* pointer);
     O_Stream& operator<<(char* text);
-    O_Stream operator<<(O_Stream& (*fkt)(O_Stream&));
+    O_Stream& operator<<(O_Stream& (*fkt)(O_Stream&));
 };
 
 /*---------------------------------------------------------------------------*/
@@ -56,19 +69,18 @@ class O_Stream : public Stringbuffer {
 /*---------------------------------------------------------------------------*/
 
 // ENDL: fuegt einen Zeilenumbruch in die Ausgabe ein.
-/* Hier muesst ihr selbst Code vervollstaendigen */
+O_Stream& endl(O_Stream& os);
 
 // BIN: waehlt das binaere Zahlensystem aus.
-/* Hier muesst ihr selbst Code vervollstaendigen */
+O_Stream& bin(O_Stream& os);
 
 // OCT: waehlt das oktale Zahlensystem aus.
-/* Hier muesst ihr selbst Code vervollstaendigen */
+O_Stream& oct(O_Stream& os);
 
 // DEC: waehlt das dezimale Zahlensystem aus.
-/* Hier muesst ihr selbst Code vervollstaendigen */
+O_Stream& dec(O_Stream& os);
 
 // HEX: waehlt das hexadezimale Zahlensystem aus.
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
+O_Stream& hex(O_Stream& os);
 #endif
 
