@@ -271,10 +271,26 @@ Keyboard_Controller::Keyboard_Controller () :
 Key Keyboard_Controller::key_hit ()
  {
    Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-/* Hier muesst ihr selbst Code vervollstaendigen */          
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+   while (true)
+   {
+      //abfrage ob ein zeichen zum lesen im ausgabebuffer bereitsteht
+      if(ctrl_port.inb() & outb){
+         // maus wird nicht unterstuetzt
+         if (!(ctrl_port.inb() & auxb) )
+         {
+            code = data_port.inb();
+            //ueberprueft die eingabe von der tastatur
+            // auf rueckgabe warten mit if abfrage sonst werden zeichen oeffters ausgegeben
+            if(key_decoded()){
+               if(gather.valid()){
+               return gather;
+               }
+            }
+         }
+      
+      }
+   }
    return invalid;
  }
 
