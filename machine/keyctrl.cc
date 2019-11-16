@@ -237,33 +237,26 @@ Keyboard_Controller::Keyboard_Controller() : ctrl_port(0x64), data_port(0x60) {
 //          falls liefert key_hit () einen ungueltigen Wert zurueck, was
 //          mit Key::valid () ueberprueft werden kann.
 
-Key Keyboard_Controller::key_hit ()
- {
-   Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
+Key Keyboard_Controller::key_hit() {
+    Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
 
-   while (true)
-   {
-      //abfrage ob ein zeichen zum lesen im ausgabebuffer bereitsteht
-      if(ctrl_port.inb() & outb){
-         // maus wird nicht unterstuetzt
-         if (!(ctrl_port.inb() & auxb) )
-         {
-            code = data_port.inb();
-            //ueberprueft die eingabe von der tastatur
-            // auf rueckgabe warten mit if abfrage sonst werden zeichen oeffters ausgegeben
-            if(key_decoded()){
-               if(gather.valid()){
-               return gather;
-               }
+    while (true) {
+        // abfrage ob ein zeichen zum lesen im ausgabebuffer bereitsteht
+        if (ctrl_port.inb() & outb) {
+            // maus wird nicht unterstuetzt
+            if (!(ctrl_port.inb() & auxb)) {
+                code = data_port.inb();
+                // ueberprueft die eingabe von der tastatur
+                // auf rueckgabe warten mit if abfrage sonst werden zeichen
+                // oeffters ausgegeben
+                if (key_decoded()) {
+                    if (gather.valid()) {
+                        return gather;
+                    }
+                }
             }
-         }
-      
-      }
-   }
-   return invalid;
- }
-
-    /* Hier muesst ihr selbst Code vervollstaendigen */
+        }
+    }
     return invalid;
 }
 
