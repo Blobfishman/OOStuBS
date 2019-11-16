@@ -7,16 +7,18 @@ int main() {
     CGA_Stream kout;
     CGA_Screen osstream;
 
-    long neg_number= -20000;
-    long number = 20000;
+    int neg_number= -3;
+    int number = 3;
 
     kout << endl; kout.flush();
-    kout << "| sys/zahl |     20000      |     -20000      |" << endl; kout.flush();
+    kout << "| sys/zahl |     " << number << "      |     " << neg_number << "      |" << endl; kout.flush();
     kout << "| dec      |     " << dec << number << "      |     " << neg_number << "      |" << endl; kout.flush();
     kout << "| hex      |   " << hex << number << "   |     " << neg_number << "  |" << endl; kout.flush();
     kout << "| oct      |  " << oct << number << " |   " << neg_number << " |" << endl; kout.flush();
     kout << "| Bin+     | " << bin << number << "  |" << endl; kout.flush();
     kout << "| Bin-     | " << neg_number << "  |" << endl; kout.flush();
+    kout << (unsigned int)3 << endl; kout.flush();
+
 
     Keyboard_Controller controller;
     Key key_pressed;

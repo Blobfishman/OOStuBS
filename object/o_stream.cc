@@ -119,10 +119,9 @@ void O_Stream::convert_put(long power, long value) {
         case 2:
             index = 31;
 
-            if (value < 0)
-            {
-                neg = true;
-                value = value*(-1);
+            //bei negativer zahl array auf 37777777777 setzen
+            if(value < 0){
+                value = LONG_MAX_VALUE + value+1;
             }
             //zahl in bin umwandeln
             while (value > 0)
@@ -133,34 +132,6 @@ void O_Stream::convert_put(long power, long value) {
                 index--;
             }
 
-            if (neg)
-            {
-                //zahl invertieren
-                for (int i = 0; i < 32; i++)
-                {
-                    if (bin_number[i] == '0')
-                    {
-                        bin_number[i] = '1';
-                    }else
-                    {
-                        bin_number[i] = '0';
-                    }
-                }
-                //zahl +1
-                for (int i = 31; i >=0; i--)
-                {
-                    if (bin_number[i] == '1')
-                    {
-                        bin_number[i] = '0';
-                    }else
-                    {
-                        bin_number[i] = '1';
-                        break;
-                    }
-                    
-                    
-                }
-            }
             //zahl auf buffer schreiben
             for (int i = 0; i < 32; i++)
             {

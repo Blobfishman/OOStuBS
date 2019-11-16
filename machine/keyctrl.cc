@@ -277,7 +277,7 @@ Key Keyboard_Controller::key_hit ()
       //abfrage ob ein zeichen zum lesen im ausgabebuffer bereitsteht
       if(ctrl_port.inb() & outb){
          // maus wird nicht unterstuetzt
-         if (!(ctrl_port.inb() & auxb) )
+         if (!(ctrl_port.inb() & auxb))
          {
             code = data_port.inb();
             //ueberprueft die eingabe von der tastatur
