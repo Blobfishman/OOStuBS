@@ -345,7 +345,18 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
 // SET_LED: setzt oder loescht die angegebene Leuchtdiode
 
 void Keyboard_Controller::set_led(char led, bool on) {
-    /* Hier muesst ihr selbst Code vervollstaendigen */
+    while ((ctrl_port.inb() & inpb) != 0) {
+        key_hit();
+    }
+    data_port.outb(kbd_cmd::set_led);
 
-    /* Hier muesst ihr selbst Code vervollstaendigen */
+    while ((ctrl_port.inb() & inpb) != 0) {
+    }
+    if (on) {
+        leds = leds | led;
+        data_port.outb(leds);
+    } else {
+        leds = leds ^ led;
+        data_port.outb(leds);
+    }
 }
