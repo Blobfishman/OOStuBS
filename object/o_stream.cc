@@ -18,9 +18,9 @@
 
 #include "object/o_stream.h"
 
-#define SHORT_NEG_MIN_VALUE 32768
-#define INT_NEG_MIN_VALUE 2147483648
-#define LONG_NEG_MIN_VALUE 9223372036854775808
+#define SHORT_MAX_VALUE 65535
+#define INT_MAX_VALUE 4294967295
+#define LONG_MAX_VALUE 4294967295
 
 O_Stream::O_Stream() {
     buffer_size = 256;
@@ -28,38 +28,149 @@ O_Stream::O_Stream() {
 }
 
 void O_Stream::convert_put(long power, long value) {
-    long pow = power;
 
-    while (pow <= value) {
-        pow *= power;
-    }
+    long pow = 1;
+    bool neg = false;
+    //Alle hex zeichen um zugriff zu vereinfachen, da in ascii tabelle nicht hintereinander
+    char* hex_character = "0123456789ABCDEF0";
+    // zahlensysteme in 32 Bit darstellung
+    char* hex_number ="00000000";
+    char* oct_number ="00000000000";
+    char* bin_number = "00000000000000000000000000000000";
+    // index fuer die zahlensysteme
+    int index=0;
+    // anzahl der stellen fuer dec, sonst werden nullen nicht geschrieben
+    int digit_number = 1;
 
     switch (power) {
         case 16:
             put('0');
             put('x');
+
+            //fuer hex array mit laenge 8
+            index =7;
+            //bei negative werten positives komplement errechnen
+            if(value < 0){
+                value = LONG_MAX_VALUE + value+1;
+            }
+            //zahl in hex umwandeln
+            while (value > 1)
+            {
+                    hex_number[index] = hex_character[(value%power)];
+                    value /=power;
+                    index--;
+            }
+            //array in buffer schreiben
+            for (int i = 0; i < 8; i++)
+                {
+                    put(hex_number[i]);
+                }
+            
             break;
         case 10:
+            //fuer negative zahlen minus auf buffer schreiben 
             if (value < 0) {
                 put('-');
+                value *=-1;
             }
+
+            // berechnung der 10er potenz
+            while ((pow*power) <= value)
+            {
+                digit_number++;
+                pow *=power;
+            }
+            //die einzelnen stellen der zahl auf buffer schreiben
+            while (digit_number >= 1)
+            {
+                //+48 wegen ascii tabelle 
+                put((char) (value/pow) + 48);
+                //letzte stelle entfernen
+                value = value % pow;
+                pow/=10;
+                digit_number--;
+            }
+            break;
         case 8:
             put('0');
             put('o');
+            //fuer oct arraz laenge 11
+            index = 10;
+
+            //bei negativer zahl array auf 37777777777 setzen
+            if(value < 0){
+                value = LONG_MAX_VALUE + value+1;
+            }
+            //zahl in oct umwandeln
+            while (value > 1)
+            {
+                    //+48 fuer ascii
+                    oct_number[index] = value%power +48;
+                    value /=power;
+                    index--;
+            }
+            // zahl in buffer schreiben
+            for (int i = 0; i < 11; i++)
+            {
+                put(oct_number[i]);
+            }
+            
+            break;
+        case 2:
+            index = 31;
+
+            if (value < 0)
+            {
+                neg = true;
+                value = value*(-1);
+            }
+            //zahl in bin umwandeln
+            while (value > 0)
+            {
+                //+48 wegen ascii
+                bin_number[index] = value%power +48;
+                value = value/power;
+                index--;
+            }
+
+            if (neg)
+            {
+                //zahl invertieren
+                for (int i = 0; i < 32; i++)
+                {
+                    if (bin_number[i] == '0')
+                    {
+                        bin_number[i] = '1';
+                    }else
+                    {
+                        bin_number[i] = '0';
+                    }
+                }
+                //zahl +1
+                for (int i = 31; i >=0; i--)
+                {
+                    if (bin_number[i] == '1')
+                    {
+                        bin_number[i] = '0';
+                    }else
+                    {
+                        bin_number[i] = '1';
+                        break;
+                    }
+                    
+                    
+                }
+            }
+            //zahl auf buffer schreiben
+            for (int i = 0; i < 32; i++)
+            {
+                if(i%8 == 0){put(' ');}
+                put(bin_number[i]);
+            }
             break;
     }
 
-    do {
-        pow /= power;
-        if ((value / pow) >= 10) {
-            put((char)(value / pow) + 55);
-        } else {
-            put((char)(value / pow) + 48);
-        }
-        value %= pow;
-        pow /= power;
-
-    } while (pow != 0);
+    
 }
 
 void O_Stream::set_system(PositionalNumeralSystem sys) { system = sys; }
@@ -131,9 +242,6 @@ O_Stream& O_Stream::operator<<(unsigned long number) {
 }
 
 O_Stream& O_Stream::operator<<(short number) {
-    if (number < 0) {
-        number += SHORT_NEG_MIN_VALUE;
-    }
     switch (system) {
         case PositionalNumeralSystem::bin:
             convert_put(2, (long)number);
@@ -153,9 +261,6 @@ O_Stream& O_Stream::operator<<(short number) {
 }
 
 O_Stream& O_Stream::operator<<(int number) {
-    if (number < 0) {
-        number += INT_NEG_MIN_VALUE;
-    }
     switch (system) {
         case PositionalNumeralSystem::bin:
             convert_put(2, (long)number);
@@ -173,10 +278,7 @@ O_Stream& O_Stream::operator<<(int number) {
     return *this;
 }
 
-O_Stream& O_Stream::operator<<(long number) {
-    if (number < 0) {
-        number += LONG_NEG_MIN_VALUE;
-    }
+O_Stream& O_Stream::operator<<(long number) {    
     switch (system) {
         case PositionalNumeralSystem::bin:
             convert_put(2, (long)number);

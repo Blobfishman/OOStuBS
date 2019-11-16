@@ -21,7 +21,7 @@
 
 #include "object/strbuf.h"
 
-enum class PositionalNumeralSystem { bin, dec, oct, hex };
+enum class PositionalNumeralSystem { bin = 2, dec = 10, oct = 8, hex = 16 };
 
 class O_Stream : public Stringbuffer {
    private:

@@ -16,6 +16,6 @@
 CGA_Stream::CGA_Stream() : O_Stream(), CGA_Screen() {}
 
 void CGA_Stream::flush() {
-    CGA_Screen::print(buffer, buffer_size, (unsigned char) 0x0F);
+    CGA_Screen::print(buffer, current_index, (unsigned char) 0x0F);
     cleanBuffer();
 }
