@@ -331,7 +331,7 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
             return;
     }
 
-    data_port.outb(0xf3);
+    data_port.outb(kbd_cmd::set_speed);
     data_port.outb(val);
 
     // auf ack warten
