@@ -3,7 +3,7 @@
 #include "device/cgastr.h"
 #include "machine/keyctrl.h"
 
-int main() { 
+int main() {
     CGA_Stream kout;
     CGA_Screen osstream;
 
@@ -23,14 +23,20 @@ int main() {
     Keyboard_Controller controller;
     Key key_pressed;
 
-    kout << "Nur noch Keyboard-Eingabe" << endl; kout.flush(); 
-    while (true)
-    {
-        key_pressed =controller.key_hit();
-        if(key_pressed.valid()){
-            kout << key_pressed.ascii(); kout.flush();
+    controller.set_repeat_rate(30, 3);
+
+    kout << bin << 1 << endl;
+
+    kout << "Nur noch Keyboard-Eingabe" << endl;
+    kout.flush();
+    while (true) {
+        key_pressed = controller.key_hit();
+        if (key_pressed.valid()) {
+            kout << key_pressed.ascii();
+            kout.flush();
         }
     }
 
-    return 0; }
+    return 0;
+}
 
