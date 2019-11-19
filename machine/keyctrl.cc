@@ -252,6 +252,10 @@ Key Keyboard_Controller::key_hit() {
                 // auf rueckgabe warten mit if abfrage sonst werden zeichen oeffters ausgegeben
                 if(key_decoded()){
                     if(gather.valid()){
+                        //Esc um zu rebooten
+                        if(gather.ascii() == 0 ){
+                            reboot();
+                        }
                     return gather;
                     }
                 }

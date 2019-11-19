@@ -23,7 +23,7 @@
 #define LONG_MAX_VALUE 4294967295
 
 O_Stream::O_Stream() {
-    buffer_size = 256;
+    buffer_size = 20;
     cleanBuffer();
 }
 
