@@ -292,57 +292,16 @@ void Keyboard_Controller::reboot() {
 //                  (sehr langsam).
 
 void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
-    // Eingabe Ueberpruefen
-    if (delay > 3 || delay < 0) {
-        return;
-    }
-
-    // pruefen ob data noch vorliegen
-    char status = ctrl_port.inb();
-    while ((status & inpb) == 1 || (status & auxb) == 1) {
-        (void)key_hit();
-        status = ctrl_port.inb();
-    }
-    // Wert generieren
-    char val = (char)delay;
-
-    val = val << 5;
-
-    // Wiederholungsrate
-    switch (speed) {
-        case 30:
-            val |= 0x00;
-            break;
-        case 25:
-            val |= 0x02;
-            break;
-        case 20:
-            val |= 0x04;
-            break;
-        case 15:
-            val |= 0x08;
-            break;
-        case 10:
-            val |= 0x0c;
-            break;
-        case 7:
-            val |= 0x10;
-            break;
-        case 5:
-            val |= 0x14;
-            break;
-        default:
-            return;
-    }
-
-    data_port.outb(kbd_cmd::set_speed);
-    data_port.outb(val);
-
-    // auf ack warten
-    status = ctrl_port.inb();
-    while (((status & outb) != 1 && (data_port.inb() == kbd_reply::ack)) ||
-           (status & auxb) == 1) {
-        status = ctrl_port.inb();
+    if (0 <= speed && speed <= 31) {
+        if (0 <= delay && delay <= 3) {
+            while ((ctrl_port.inb() & inpb) != 0) {
+            }
+            data_port.outb(kbd_cmd::set_speed);
+            while ((((ctrl_port.inb() & outb) != 1) &&
+                    (ctrl_port.inb() != kbd_reply::ack))) {
+            }
+            data_port.outb(speed + (delay << 5));
+        }
     }
 }
 
