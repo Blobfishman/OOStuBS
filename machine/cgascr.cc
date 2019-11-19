@@ -125,6 +125,6 @@ void CGA_Screen::print(char *text, int length, unsigned char attrib) {
             show(x, y, text[i], attrib);
             x++;
         }
-        setpos(x , y);
+        setpos(x, y);
     }
 }

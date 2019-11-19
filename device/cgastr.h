@@ -14,18 +14,17 @@
 #ifndef __cgastr_include__
 #define __cgastr_include__
 
-#include "object/o_stream.h"
 #include "machine/cgascr.h"
+#include "object/o_stream.h"
 
-class CGA_Stream : public O_Stream, public CGA_Screen
- {
-private:
-      CGA_Stream(CGA_Stream &copy); // Verhindere Kopieren
+class CGA_Stream : public O_Stream, public CGA_Screen {
+   private:
+    CGA_Stream(CGA_Stream &copy);  // Verhindere Kopieren
 
-public:
-      CGA_Stream();
+   public:
+    CGA_Stream();
 
-      void flush() override;
- };
+    void flush() override;
+};
 
 #endif

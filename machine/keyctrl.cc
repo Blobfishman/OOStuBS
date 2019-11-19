@@ -240,23 +240,22 @@ Keyboard_Controller::Keyboard_Controller() : ctrl_port(0x64), data_port(0x60) {
 Key Keyboard_Controller::key_hit() {
     Key invalid;  // nicht explizit initialisierte Tasten sind ungueltig
 
-   while (true)
-   {
-        //abfrage ob ein zeichen zum lesen im ausgabebuffer bereitsteht
-        if(ctrl_port.inb() & outb){
-        // maus wird nicht unterstuetzt
-            if (!(ctrl_port.inb() & auxb))
-            {
+    while (true) {
+        // abfrage ob ein zeichen zum lesen im ausgabebuffer bereitsteht
+        if (ctrl_port.inb() & outb) {
+            // maus wird nicht unterstuetzt
+            if (!(ctrl_port.inb() & auxb)) {
                 code = data_port.inb();
-                //ueberprueft die eingabe von der tastatur
-                // auf rueckgabe warten mit if abfrage sonst werden zeichen oeffters ausgegeben
-                if(key_decoded()){
-                    if(gather.valid()){
-                        //Esc um zu rebooten
-                        if(gather.ascii() == 0 ){
+                // ueberprueft die eingabe von der tastatur
+                // auf rueckgabe warten mit if abfrage sonst werden zeichen
+                // oeffters ausgegeben
+                if (key_decoded()) {
+                    if (gather.valid()) {
+                        // Esc um zu rebooten
+                        if (gather.ascii() == 0) {
                             reboot();
                         }
-                    return gather;
+                        return gather;
                     }
                 }
             }
