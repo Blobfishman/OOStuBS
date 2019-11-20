@@ -220,7 +220,8 @@ void Keyboard_Controller::get_ascii_code() {
 //                      ausgeschaltet und die Wiederholungsrate auf
 //                      maximale Geschwindigkeit eingestellt.
 
-Keyboard_Controller::Keyboard_Controller() : ctrl_port(0x64), data_port(0x60) {
+Keyboard_Controller::Keyboard_Controller()
+    : leds(0), ctrl_port(0x64), data_port(0x60) {
     // alle LEDs ausschalten (bei vielen PCs ist NumLock nach dem Booten an)
     set_led(led::caps_lock, false);
     set_led(led::scroll_lock, false);
@@ -308,18 +309,22 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
 // SET_LED: setzt oder loescht die angegebene Leuchtdiode
 
 void Keyboard_Controller::set_led(char led, bool on) {
-    while ((ctrl_port.inb() & inpb) != 0) {
-        key_hit();
-    }
-    data_port.outb(kbd_cmd::set_led);
+    if (led == led::caps_lock || led == led::num_lock || led == led::scroll_lock) {
+        while ((ctrl_port.inb() & inpb) != 0) {
+        }
+        data_port.outb(kbd_cmd::set_led);
 
-    while ((ctrl_port.inb() & inpb) != 0) {
-    }
-    if (on) {
-        leds = leds | led;
-        data_port.outb(leds);
-    } else {
-        leds = leds ^ led;
-        data_port.outb(leds);
+        while ((((ctrl_port.inb() & outb) != 1) &&
+                (ctrl_port.inb() != kbd_reply::ack))) {
+        }
+
+        if (on) {
+            leds = leds | led;
+            data_port.outb(leds);
+        }
+        if (!on) {
+            leds = leds & (~led);
+            data_port.outb(leds);
+        }
     }
 }

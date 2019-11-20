@@ -116,7 +116,6 @@ void CGA_Screen::print(char *text, int length, unsigned char attrib) {
                         pos = CGA_START + 2 * (j + z * MAX_COLUMN_COUNT);
                         show(j, z - 1, *pos, *(pos + 1));
                         *pos = ' ';
-                        *(pos + 1) = 0;
                     }
                 }
                 y--;
