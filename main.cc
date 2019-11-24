@@ -7,32 +7,85 @@ int main() {
     CGA_Stream kout;
     CGA_Screen osstream;
 
-    int neg_number = -3;
-    int number = 3;
+    short neg_short = -1;
+    unsigned short u_short = 1;
+    short normal_short =1;
 
+/*     kout << endl; */
+/*     kout.flush(); */
+/*     kout << "| sys/zahl | (short) " << normal_short << " | (unsigned short) " << u_short << " | (short) " << neg_short << " | " << endl; */
+/*     kout.flush(); */
+/*     kout << "| dec      |" << dec << normal_short << " | " << u_short << " | " << neg_short << " | " << endl; */
+/*     kout.flush(); */
+/*     kout << "| hex      | " << hex << normal_short << "     | " << u_short << "     | "  << neg_short << "     | " << endl; */
+/*     kout.flush(); */
+/*     kout << "| oct      | " << oct << normal_short << " | " << u_short << " | " << neg_short << " | " << endl; */
+/*     kout.flush(); kout << endl; */
+/*     kout << "| Bin+     | (short)          " << bin << normal_short << " | " << endl; */
+/*     kout.flush(); */
+/*     kout << "| Bin+     | (unsigned short) " << bin << u_short << " | " << endl; */
+/*     kout.flush(); */
+/*     kout << "| Bin-     | (short)          " << neg_short << " | " << endl; */
+/*     kout.flush(); */
+
+    int neg_int = -1;
+    unsigned int u_int = 1;
+    int normal_int =1;
+
+    /* kout << endl; */
+    /* kout.flush(); */
+    /* kout << "| sys/zahl | (int) " << normal_int << " | (unsigned int) " << u_int << " | (int) " << neg_int << " | " << endl; */
+    /* kout.flush(); */
+    /* kout << "| dec      |" << dec << normal_int << " | " << u_int << " | " << neg_int << " | " << endl; */
+    /* kout.flush(); */
+    /* kout << "| hex      | " << hex << normal_int << "     | " << u_int << "     | "  << neg_int << "     | " << endl; */
+    /* kout.flush(); */
+    /* kout << "| oct      | " << oct << normal_int << " | " << u_int << " | " << neg_int << " | " << endl; */
+    /* kout.flush(); kout << endl; */
+    /* kout << "| Bin+     | (int)          " << bin << normal_int << " | " << endl; */
+    /* kout.flush(); */
+    /* kout << "| Bin+     | (unsigned int) " << bin << u_int << " | " << endl; */
+    /* kout.flush(); */
+    /* kout << "| Bin-     | (int)          " << neg_int << " | " << endl; */
+    /* kout.flush(); */
+    
+    long neg_long =-1;
+    unsigned long u_long=1;
+    long normal_long =1;
+    
     kout << endl;
     kout.flush();
-    kout << "| sys/zahl |     " << number << "          |     " << neg_number
-         << "          |" << endl;
+    kout << "| dec (long)   |" << dec << normal_long << endl;
     kout.flush();
-    kout << "| dec      |     " << dec << number << "          |     "
-         << neg_number << "          |" << endl;
+    kout << "| dec (u_long) |" << dec << u_long << endl;
     kout.flush();
-    kout << "| hex      |   " << hex << number << "   |     " << neg_number
-         << "  |" << endl;
+    kout << "| dec (long)   |" << dec << neg_long << endl;
     kout.flush();
-    kout << "| oct      |  " << oct << number << " |   " << neg_number << " |"
-         << endl;
+
+    kout << "| hex (long)   | " << hex << normal_long << endl;
     kout.flush();
-    kout << "| Bin+     | " << bin << number << "  |" << endl;
+    kout << "| hex (u_long) | " << hex << u_long << endl;
     kout.flush();
-    kout << "| Bin-     | " << neg_number << "  |" << endl;
+    kout << "| hex (long)   | " << hex << neg_long << endl;
+    kout.flush();
+
+    kout << "| oct (long)   | " << oct << normal_long << endl;
+    kout.flush();
+    kout << "| oct (u_long) | " << oct << u_long << endl;
+    kout.flush();
+    kout << "| oct (long)   | " << oct << neg_long << endl;
+    kout.flush(); kout << endl;
+    kout << "| Bin+ (long)   | " << bin << normal_long << " | " << endl;
+    kout.flush();
+    kout << "| Bin+ (u_long) | " << bin << u_long << " | " << endl;
+    kout.flush();
+    kout << "| Bin- (long)   | " << neg_long << " | " << endl;
     kout.flush();
 
     Keyboard_Controller controller;
     Key key_pressed;
 
-    /* controller.set_repeat_rate(30, 3); */
+    controller.set_repeat_rate(30, 3);
 
     kout << "Nur noch Keyboard-Eingabe (1 -> Buffer, 2-> repeate rate)" << endl;
     kout.flush();

@@ -27,9 +27,27 @@ class O_Stream : public Stringbuffer {
    private:
     O_Stream(const O_Stream& copy);  // Verhindere Kopieren
 
-    void convert_put(long power, long value);
-
     PositionalNumeralSystem system = PositionalNumeralSystem::dec;
+
+    void init();
+    //Array fuer die umrechnungen in 16, 32, 64 bit
+
+    char* bin_16Bit = "0000000000000000";
+    char* hex_16Bit = "0000";
+    char* oct_16Bit = "000000";
+
+    char* hex_32Bit = "00000000";
+    char* oct_32Bit = "00000000000";
+    char* bin_32Bit = "00000000000000000000000000000000";
+
+    char* hex_64Bit = "0000000000000000";
+    char* oct_64Bit = "0000000000000000000000";
+    char* bin_64Bit = "0000000000000000000000000000000000000000000000000000000000000000";
+
+    char* hex_character = "0123456789ABCDEF0";
+    long power=1;
+    short digit_number=1;
+    short index =0;
 
    public:
     O_Stream();
