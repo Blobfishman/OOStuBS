@@ -7,7 +7,7 @@
 /*---------------------------------------------------------------------------*/
 /* Die Klasse O_Stream enthaelt die Definition des << Operators fuer die     */
 /* wichtigsten der vordefinierten Datentypen und realisiert somit die        */
-	/* bekannte Ausgabefunktion der C++ IO_Stream Bibliothek. Zur Zeit wird die  */
+/* bekannte Ausgabefunktion der C++ IO_Stream Bibliothek. Zur Zeit wird die  */
 /* Darstellung von Zeichen, Zeichenketten und ganzen Zahlen unterstuetzt.    */
 /* Ein weiterer << Operator erlaubt die Verwendung von Manipulatoren.        */
 /*                                                                           */
@@ -27,10 +27,10 @@ O_Stream::O_Stream() {
     cleanBuffer();
 }
 
-void O_Stream::init(){
-	power=1;
-	digit_number=1;
-	index=1;
+void O_Stream::init() {
+    power = 1;
+    digit_number = 1;
+    index = 1;
 }
 
 void O_Stream::set_system(PositionalNumeralSystem sys) { system = sys; }
@@ -48,7 +48,7 @@ O_Stream& O_Stream::operator<<(char c) {
 }
 
 O_Stream& O_Stream::operator<<(unsigned short number) {
-	init();	
+    init();
     switch (system) {
         case PositionalNumeralSystem::bin:
             index = 15;
@@ -59,10 +59,10 @@ O_Stream& O_Stream::operator<<(unsigned short number) {
                 number = number / 2;
                 index--;
             }
-		while(index >=0){
-			bin_16Bit[index]='0';
-			index--;
-		}
+            while (index >= 0) {
+                bin_16Bit[index] = '0';
+                index--;
+            }
             // zahl auf buffer schreiben
             for (int i = 0; i < 16; i++) {
                 if (i % 8 == 0) {
@@ -83,17 +83,17 @@ O_Stream& O_Stream::operator<<(unsigned short number) {
                 number /= 8;
                 index--;
             }
-	    while (index >= 0){
-	    	oct_16Bit[index] = '0';
-		index--;
-	    }
+            while (index >= 0) {
+                oct_16Bit[index] = '0';
+                index--;
+            }
             // zahl in buffer schreiben
             for (int i = 0; i < 6; i++) {
                 put(oct_16Bit[i]);
             }
             break;
         case PositionalNumeralSystem::dec:
-	    // 10er potenz ermitteln
+            // 10er potenz ermitteln
             while ((power * 10) <= number) {
                 digit_number++;
                 power *= 10;
@@ -118,10 +118,10 @@ O_Stream& O_Stream::operator<<(unsigned short number) {
                 number /= 16;
                 index--;
             }
-	    while (index >= 0){
-	    	hex_16Bit[index] = '0';
-		index --;
-	    }
+            while (index >= 0) {
+                hex_16Bit[index] = '0';
+                index--;
+            }
             // array in buffer schreiben
             for (int i = 0; i < 4; i++) {
                 put(hex_16Bit[i]);
@@ -132,7 +132,7 @@ O_Stream& O_Stream::operator<<(unsigned short number) {
 }
 
 O_Stream& O_Stream::operator<<(unsigned int number) {
-	init();
+    init();
     switch (system) {
         case PositionalNumeralSystem::bin:
             index = 31;
@@ -143,11 +143,11 @@ O_Stream& O_Stream::operator<<(unsigned int number) {
                 number = number / 2;
                 index--;
             }
-	    
-	    while (index >= 0){
-	    	bin_32Bit[index] = '0';
-		index --;
-	    }
+
+            while (index >= 0) {
+                bin_32Bit[index] = '0';
+                index--;
+            }
 
             // zahl auf buffer schreiben
             for (int i = 0; i < 32; i++) {
@@ -171,10 +171,10 @@ O_Stream& O_Stream::operator<<(unsigned int number) {
                 number /= 8;
                 index--;
             }
-	    while (index >= 0){
-	    	oct_32Bit[index] = '0';
-		index--;
-	    }
+            while (index >= 0) {
+                oct_32Bit[index] = '0';
+                index--;
+            }
             // zahl in buffer schreiben
             for (int i = 0; i < 11; i++) {
                 put(oct_32Bit[i]);
@@ -207,10 +207,10 @@ O_Stream& O_Stream::operator<<(unsigned int number) {
                 number /= 16;
                 index--;
             }
-	    while(index >= 0){
-	    	hex_32Bit[index] = '0';
-		index--;
-	    }
+            while (index >= 0) {
+                hex_32Bit[index] = '0';
+                index--;
+            }
             // array in buffer schreiben
             for (int i = 0; i < 8; i++) {
                 put(hex_32Bit[i]);
@@ -221,7 +221,7 @@ O_Stream& O_Stream::operator<<(unsigned int number) {
 }
 
 O_Stream& O_Stream::operator<<(unsigned long number) {
-	init();
+    init();
     switch (system) {
         case PositionalNumeralSystem::bin:
             index = 63;
@@ -232,10 +232,10 @@ O_Stream& O_Stream::operator<<(unsigned long number) {
                 number = number / 2;
                 index--;
             }
-	    while(index >= 0){
-	    	bin_64Bit[index] = '0';
-		index--;
-	    }
+            while (index >= 0) {
+                bin_64Bit[index] = '0';
+                index--;
+            }
 
             // zahl auf buffer schreiben
             for (int i = 0; i < 64; i++) {
@@ -259,10 +259,10 @@ O_Stream& O_Stream::operator<<(unsigned long number) {
                 number /= 8;
                 index--;
             }
-	    while (index >= 0){
-	    	oct_64Bit[index] = '0';
-		index--;
-	    }
+            while (index >= 0) {
+                oct_64Bit[index] = '0';
+                index--;
+            }
             // zahl in buffer schreiben
             for (int i = 0; i < 22; i++) {
                 put(oct_64Bit[i]);
@@ -300,10 +300,10 @@ O_Stream& O_Stream::operator<<(unsigned long number) {
                 number /= 16;
                 index--;
             }
-	    while (index >= 0){
-	    	hex_64Bit[index] = '0';
-		index--;
-	    }
+            while (index >= 0) {
+                hex_64Bit[index] = '0';
+                index--;
+            }
             // array in buffer schreiben
             for (int i = 0; i < 16; i++) {
                 put(hex_64Bit[i]);
@@ -314,15 +314,17 @@ O_Stream& O_Stream::operator<<(unsigned long number) {
 }
 
 O_Stream& O_Stream::operator<<(short number) {
-	init();
-	unsigned short n =0;
+    init();
+    unsigned short n = 0;
     switch (system) {
         case PositionalNumeralSystem::bin:
             index = 15;
             // bei neg
             if (number < 0) {
                 n = SHORT_MAX_VALUE + number + 1;
-            }else{n = number;}
+            } else {
+                n = number;
+            }
             // zahl in bin umwandeln
             while (n > 0) {
                 //+48 wegen ascii
@@ -330,10 +332,10 @@ O_Stream& O_Stream::operator<<(short number) {
                 n = n / 2;
                 index--;
             }
-	    while(index >= 0){
-	    	bin_16Bit[index]='0';
-		index--;
-	    }
+            while (index >= 0) {
+                bin_16Bit[index] = '0';
+                index--;
+            }
 
             // zahl auf buffer schreiben
             for (int i = 0; i < 16; i++) {
@@ -353,7 +355,9 @@ O_Stream& O_Stream::operator<<(short number) {
             // bei negativer zahl array auf 37777777777 setzen
             if (number < 0) {
                 n = SHORT_MAX_VALUE + number + 1;
-            }else{n = number;}
+            } else {
+                n = number;
+            }
             // zahl in oct umwandeln
             while (n > 0) {
                 //+48 fuer ascii
@@ -361,10 +365,10 @@ O_Stream& O_Stream::operator<<(short number) {
                 n /= 8;
                 index--;
             }
-	    while (index >= 0){
-	    	oct_16Bit[index]='0';
-		index--;
-	    }
+            while (index >= 0) {
+                oct_16Bit[index] = '0';
+                index--;
+            }
             // zahl in buffer schreiben
             for (int i = 0; i < 6; i++) {
                 put(oct_16Bit[i]);
@@ -398,18 +402,20 @@ O_Stream& O_Stream::operator<<(short number) {
             index = 3;
             // bei negative werten positives komplement errechnen
             if (number < 0) {
-                n = SHORT_MAX_VALUE + number +1;
-            }else{n = number;}
+                n = SHORT_MAX_VALUE + number + 1;
+            } else {
+                n = number;
+            }
             // zahl in hex umwandeln
             while (n > 0) {
                 hex_16Bit[index] = hex_character[(n % 16)];
                 n /= 16;
                 index--;
             }
-	    while (index >= 0){
-	    	hex_16Bit[index]= '0';
-		index--;
-	    }
+            while (index >= 0) {
+                hex_16Bit[index] = '0';
+                index--;
+            }
             // array in buffer schreiben
             for (int i = 0; i < 4; i++) {
                 put(hex_16Bit[i]);
@@ -420,15 +426,17 @@ O_Stream& O_Stream::operator<<(short number) {
 }
 
 O_Stream& O_Stream::operator<<(int number) {
-	init();
-	unsigned int n=0;
+    init();
+    unsigned int n = 0;
     switch (system) {
         case PositionalNumeralSystem::bin:
             index = 31;
             // bei neg
             if (number < 0) {
                 n = INT_MAX_VALUE + number + 1;
-            }else{n = number;}
+            } else {
+                n = number;
+            }
             // zahl in bin umwandeln
             while (n > 0) {
                 //+48 wegen ascii
@@ -436,10 +444,10 @@ O_Stream& O_Stream::operator<<(int number) {
                 n = n / 2;
                 index--;
             }
-	    while(index >=0){
-	    	bin_32Bit[index]='0';
-		index--;
-	    }
+            while (index >= 0) {
+                bin_32Bit[index] = '0';
+                index--;
+            }
 
             // zahl auf buffer schreiben
             for (int i = 0; i < 32; i++) {
@@ -459,7 +467,9 @@ O_Stream& O_Stream::operator<<(int number) {
             // bei negativer zahl array auf 37777777777 setzen
             if (number < 0) {
                 n = INT_MAX_VALUE + number + 1;
-            }else{n = number;}
+            } else {
+                n = number;
+            }
             // zahl in oct umwandeln
             while (n > 0) {
                 //+48 fuer ascii
@@ -467,10 +477,10 @@ O_Stream& O_Stream::operator<<(int number) {
                 n /= 8;
                 index--;
             }
-	    while(index >= 0){
-	    	oct_32Bit[index]='0';
-		index--;
-	    }
+            while (index >= 0) {
+                oct_32Bit[index] = '0';
+                index--;
+            }
             // zahl in buffer schreiben
             for (int i = 0; i < 11; i++) {
                 put(oct_32Bit[i]);
@@ -505,17 +515,19 @@ O_Stream& O_Stream::operator<<(int number) {
             // bei negative werten positives komplement errechnen
             if (number < 0) {
                 n = INT_MAX_VALUE + number + 1;
-            }else{n = number;}
+            } else {
+                n = number;
+            }
             // zahl in hex umwandeln
             while (n > 0) {
                 hex_32Bit[index] = hex_character[(n % 16)];
                 n /= 16;
                 index--;
             }
-	    while(index >= 0){
-	    	hex_32Bit[index]='0';
-		index--;
-	    }
+            while (index >= 0) {
+                hex_32Bit[index] = '0';
+                index--;
+            }
             // array in buffer schreiben
             for (int i = 0; i < 8; i++) {
                 put(hex_32Bit[i]);
@@ -526,15 +538,17 @@ O_Stream& O_Stream::operator<<(int number) {
 }
 
 O_Stream& O_Stream::operator<<(long number) {
-	init();
-	unsigned long n=0;
+    init();
+    unsigned long n = 0;
     switch (system) {
         case PositionalNumeralSystem::bin:
             index = 63;
             // bei neg
             if (number < 0) {
                 n = LONG_MAX_VALUE + number + 1;
-            }else{n = number;}
+            } else {
+                n = number;
+            }
             // zahl in bin umwandeln
             while (n > 0) {
                 //+48 wegen ascii
@@ -542,10 +556,10 @@ O_Stream& O_Stream::operator<<(long number) {
                 n = n / 2;
                 index--;
             }
-	    while (index >= 0){
-	    	bin_64Bit[index]='0';
-		index--;
-	    }
+            while (index >= 0) {
+                bin_64Bit[index] = '0';
+                index--;
+            }
 
             // zahl auf buffer schreiben
             for (int i = 0; i < 64; i++) {
@@ -565,7 +579,9 @@ O_Stream& O_Stream::operator<<(long number) {
             // bei negativer zahl array auf 37777777777 setzen
             if (number < 0) {
                 n = LONG_MAX_VALUE + number + 1;
-            }else{n = number;}
+            } else {
+                n = number;
+            }
             // zahl in oct umwandeln
             while (n > 0) {
                 //+48 fuer ascii
@@ -573,10 +589,10 @@ O_Stream& O_Stream::operator<<(long number) {
                 n /= 8;
                 index--;
             }
-	    while (index >= 0){
-	    	oct_64Bit[index]='0';
-		index--;
-	    }
+            while (index >= 0) {
+                oct_64Bit[index] = '0';
+                index--;
+            }
             // zahl in buffer schreiben
             for (int i = 0; i < 22; i++) {
                 put(oct_64Bit[i]);
@@ -611,17 +627,19 @@ O_Stream& O_Stream::operator<<(long number) {
             // bei negative werten positives komplement errechnen
             if (number < 0) {
                 n = LONG_MAX_VALUE + number + 1;
-            }else{n = number;}
+            } else {
+                n = number;
+            }
             // zahl in hex umwandeln
             while (n > 0) {
                 hex_64Bit[index] = hex_character[(n % 16)];
                 n /= 16;
                 index--;
             }
-	    while(index >= 0){
-	    	hex_64Bit[index]='0';
-		index--;
-	    }
+            while (index >= 0) {
+                hex_64Bit[index] = '0';
+                index--;
+            }
             // array in buffer schreiben
             for (int i = 0; i < 16; i++) {
                 put(hex_64Bit[i]);
@@ -629,12 +647,12 @@ O_Stream& O_Stream::operator<<(long number) {
             break;
     }
     return *this;
-}   
-    
+}
+
 O_Stream& O_Stream::operator<<(void* pointer) {
-    long p=(long) pointer;
-	init();
-	unsigned long n =0;
+    long p = (long)pointer;
+    init();
+    unsigned long n = 0;
     put('0');
     put('o');
     // fuer oct arraz laenge 11
@@ -642,22 +660,24 @@ O_Stream& O_Stream::operator<<(void* pointer) {
 
     // bei negativer zahl array auf 37777777777 setzen
     if (p < 0) {
-	n = LONG_MAX_VALUE + p + 1;
-    }else{n = p;}
+        n = LONG_MAX_VALUE + p + 1;
+    } else {
+        n = p;
+    }
     // zahl in oct umwandeln
     while (n > 1) {
-	//+48 fuer ascii
-	oct_64Bit[index] = n % 8 + 48;
-	n /= 8;
-	index--;
+        //+48 fuer ascii
+        oct_64Bit[index] = n % 8 + 48;
+        n /= 8;
+        index--;
     }
-    while(index >=0){
-    	oct_64Bit[index]='0';
-	index--;
+    while (index >= 0) {
+        oct_64Bit[index] = '0';
+        index--;
     }
     // zahl in buffer schreiben
     for (int i = 0; i < 22; i++) {
-	put(oct_64Bit[i]);
+        put(oct_64Bit[i]);
     }
     return *this;
 }
