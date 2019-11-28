@@ -3,5 +3,4 @@
 
 int string_contains(char *str, unsigned length, char c);
 
-#endif // __string_util_include
-
+#endif  // __string_util_include

@@ -11,16 +11,16 @@
 #ifndef __application_include__
 #define __application_include__
 
-class Application 
- 
- {
-private:
-    Application (const Application &copy); // Verhindere Kopieren
+class Application
 
-public:
-/* Hier muesst ihr selbst Code vervollstaendigen */                  
-          
-    void action ();
- };
+{
+ private:
+  Application(const Application &copy);  // Verhindere Kopieren
+
+ public:
+  /* Hier muesst ihr selbst Code vervollstaendigen */
+
+  void action();
+};
 
 #endif

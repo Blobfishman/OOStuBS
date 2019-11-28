@@ -2,23 +2,20 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         A P P L I C A T I O N                             */
+/*                                 P A N I C                                 */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse Application definiert die einzige Anwendung von OO-Stubs.      */
+/* Standard Unterbrechungsbehandlung.                                        */
 /*****************************************************************************/
 
-/* INCLUDES */
-
-#include "user/appl.h"
+#include "device/panic.h"
 #include "device/cgastr.h"
-/* Hier muesst ihr selbst Code vervollstaendigen */
+#include "machine/cpu.h"
 
-/* GLOBALE VARIABLEN */
+Panic panic;
 
-extern CGA_Stream kout;
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
-void Application::action() {
-  /* Hier muesst ihr selbst Code vervollstaendigen */
+void Panic::trigger() {
+  cga_stream << "PANIC: Unexpected Interrupt!";
+  CPU cpu;
+  cpu.halt();
 }

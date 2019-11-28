@@ -18,16 +18,16 @@
 Stringbuffer::Stringbuffer() {}
 
 void Stringbuffer::put(char c) {
-    if (current_index >= buffer_size) {
-        flush();
-    }
-    buffer[current_index++] = c;
+  if (current_index >= buffer_size) {
+    flush();
+  }
+  buffer[current_index++] = c;
 }
 
 void Stringbuffer::cleanBuffer() {
-    current_index = 0;
+  current_index = 0;
 
-    for (int i = 0; i < buffer_size; i++) {
-        buffer[i] = '0';
-    }
+  for (int i = 0; i < buffer_size; i++) {
+    buffer[i] = '0';
+  }
 }

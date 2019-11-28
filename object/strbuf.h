@@ -17,17 +17,17 @@
 #define __strbuf_include__
 
 class Stringbuffer {
-   protected:
-    Stringbuffer(const Stringbuffer& copy);  // Verhindere Kopieren
-    char* buffer;
-    int buffer_size;
-    int current_index;
+ protected:
+  Stringbuffer(const Stringbuffer& copy);  // Verhindere Kopieren
+  char* buffer;
+  int buffer_size;
+  int current_index;
 
-   public:
-    Stringbuffer();
-    void put(char c);
-    void cleanBuffer();
-    virtual void flush() = 0;
+ public:
+  Stringbuffer();
+  void put(char c);
+  void cleanBuffer();
+  virtual void flush() = 0;
 };
 
 #endif

@@ -2,23 +2,27 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         A P P L I C A T I O N                             */
+/*                            K E Y B O A R D                                */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse Application definiert die einzige Anwendung von OO-Stubs.      */
+/* Tastaturtreiber.                                                          */
 /*****************************************************************************/
 
-/* INCLUDES */
+#ifndef __Keyboard_include__
+#define __Keyboard_include__
 
-#include "user/appl.h"
-#include "device/cgastr.h"
-/* Hier muesst ihr selbst Code vervollstaendigen */
+#include "guard/gate.h"
+#include "machine/key.h"
+#include "machine/keyctrl.h"
 
-/* GLOBALE VARIABLEN */
+class Keyboard : public Gate, public Keyboard_Controller {
+ private:
+  Keyboard(const Keyboard &copy);  // Verhindere Kopieren
 
-extern CGA_Stream kout;
-/* Hier muesst ihr selbst Code vervollstaendigen */
+ public:
+  // PLUGIN: 'Anstoepseln' der Tastatur. Ab sofort werden Tasten erkannt.
+  void plugin();
+  void trigger();
+};
 
-void Application::action() {
-  /* Hier muesst ihr selbst Code vervollstaendigen */
-}
+#endif

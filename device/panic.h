@@ -2,23 +2,27 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         A P P L I C A T I O N                             */
+/*                                 P A N I C                                 */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse Application definiert die einzige Anwendung von OO-Stubs.      */
+/* Standard Unterbrechungsbehandlung.                                        */
 /*****************************************************************************/
+
+#ifndef __panic_include__
+#define __panic_include__
 
 /* INCLUDES */
 
-#include "user/appl.h"
-#include "device/cgastr.h"
-/* Hier muesst ihr selbst Code vervollstaendigen */
+#include "guard/gate.h"
 
-/* GLOBALE VARIABLEN */
+class Panic : public Gate {
+ private:
+  Panic(const Panic &copy);  // Verhindere Kopieren
+ public:
+  Panic() {}
 
-extern CGA_Stream kout;
-/* Hier muesst ihr selbst Code vervollstaendigen */
+  void trigger() override;
+};
 
-void Application::action() {
-  /* Hier muesst ihr selbst Code vervollstaendigen */
-}
+extern Panic panic;
+#endif

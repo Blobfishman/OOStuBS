@@ -2,23 +2,22 @@
 /* Betriebssysteme                                                           */
 /*---------------------------------------------------------------------------*/
 /*                                                                           */
-/*                         A P P L I C A T I O N                             */
+/*                                  G A T E                                  */
 /*                                                                           */
 /*---------------------------------------------------------------------------*/
-/* Die Klasse Application definiert die einzige Anwendung von OO-Stubs.      */
+/* Klasse von Objekten, die in der Lage sind, Unterbrechungen zu behandeln.  */
 /*****************************************************************************/
 
-/* INCLUDES */
+#ifndef __Gate_include__
+#define __Gate_include__
 
-#include "user/appl.h"
-#include "device/cgastr.h"
-/* Hier muesst ihr selbst Code vervollstaendigen */
+class Gate {
+ private:
+  Gate(const Gate& copy) = default;
 
-/* GLOBALE VARIABLEN */
+ public:
+  Gate() {}
+  virtual void trigger() = 0;
+};
 
-extern CGA_Stream kout;
-/* Hier muesst ihr selbst Code vervollstaendigen */
-
-void Application::action() {
-  /* Hier muesst ihr selbst Code vervollstaendigen */
-}
+#endif

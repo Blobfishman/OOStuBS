@@ -24,53 +24,54 @@
 enum class PositionalNumeralSystem { bin = 2, dec = 10, oct = 8, hex = 16 };
 
 class O_Stream : public Stringbuffer {
-   private:
-    O_Stream(const O_Stream& copy);  // Verhindere Kopieren
+ private:
+  O_Stream(const O_Stream& copy);  // Verhindere Kopieren
 
-    PositionalNumeralSystem system = PositionalNumeralSystem::dec;
+  PositionalNumeralSystem system = PositionalNumeralSystem::dec;
 
-    void init();
-    //Array fuer die umrechnungen in 16, 32, 64 bit
+  void init();
+  // Array fuer die umrechnungen in 16, 32, 64 bit
 
-    char* bin_16Bit = "0000000000000000";
-    char* hex_16Bit = "0000";
-    char* oct_16Bit = "000000";
+  char* bin_16Bit = "0000000000000000";
+  char* hex_16Bit = "0000";
+  char* oct_16Bit = "000000";
 
-    char* hex_32Bit = "00000000";
-    char* oct_32Bit = "00000000000";
-    char* bin_32Bit = "00000000000000000000000000000000";
+  char* hex_32Bit = "00000000";
+  char* oct_32Bit = "00000000000";
+  char* bin_32Bit = "00000000000000000000000000000000";
 
-    char* hex_64Bit = "0000000000000000";
-    char* oct_64Bit = "0000000000000000000000";
-    char* bin_64Bit = "0000000000000000000000000000000000000000000000000000000000000000";
+  char* hex_64Bit = "0000000000000000";
+  char* oct_64Bit = "0000000000000000000000";
+  char* bin_64Bit =
+      "0000000000000000000000000000000000000000000000000000000000000000";
 
-    char* hex_character = "0123456789ABCDEF0";
-    long power=1;
-    short digit_number=1;
-    short index =0;
+  char* hex_character = "0123456789ABCDEF0";
+  long power = 1;
+  short digit_number = 1;
+  short index = 0;
 
-   public:
-    O_Stream();
+ public:
+  O_Stream();
 
-    void set_system(PositionalNumeralSystem sys);
+  void set_system(PositionalNumeralSystem sys);
 
-    PositionalNumeralSystem get_system();
+  PositionalNumeralSystem get_system();
 
-    void flush() = 0;
+  void flush() = 0;
 
-    O_Stream& operator<<(unsigned char c);
-    O_Stream& operator<<(unsigned short number);
-    O_Stream& operator<<(unsigned int number);
-    O_Stream& operator<<(unsigned long number);
+  O_Stream& operator<<(unsigned char c);
+  O_Stream& operator<<(unsigned short number);
+  O_Stream& operator<<(unsigned int number);
+  O_Stream& operator<<(unsigned long number);
 
-    O_Stream& operator<<(char c);
-    O_Stream& operator<<(short number);
-    O_Stream& operator<<(int number);
-    O_Stream& operator<<(long number);
+  O_Stream& operator<<(char c);
+  O_Stream& operator<<(short number);
+  O_Stream& operator<<(int number);
+  O_Stream& operator<<(long number);
 
-    O_Stream& operator<<(void* pointer);
-    O_Stream& operator<<(char* text);
-    O_Stream& operator<<(O_Stream& (*fkt)(O_Stream&));
+  O_Stream& operator<<(void* pointer);
+  O_Stream& operator<<(char* text);
+  O_Stream& operator<<(O_Stream& (*fkt)(O_Stream&));
 };
 
 /*---------------------------------------------------------------------------*/
@@ -101,4 +102,3 @@ O_Stream& dec(O_Stream& os);
 // HEX: waehlt das hexadezimale Zahlensystem aus.
 O_Stream& hex(O_Stream& os);
 #endif
-

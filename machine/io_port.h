@@ -20,45 +20,33 @@
 
 /* BENUTZTE FUNKTIONEN */
 
-extern "C" void outb  (int port, int value);
-extern "C" void outw (int port, int value);
-extern "C" int inb   (int port);
-extern "C" int inw  (int port);
+extern "C" void outb(int port, int value);
+extern "C" void outw(int port, int value);
+extern "C" int inb(int port);
+extern "C" int inw(int port);
 
 /* KLASSENDEFINITION */
 
-class IO_Port
- {
-      // Kopieren erlaubt!
+class IO_Port {
+  // Kopieren erlaubt!
 
-      // Adresse im I/O-Adressraum
-      int address;
-   public:
-      IO_Port (int a) : address (a) {};
+  // Adresse im I/O-Adressraum
+  int address;
 
-      // OUTB: Byteweise Ausgabe eines Wertes ueber einen I/O-Port.
-      void outb (int val) const
-       { 
-	 ::outb (address, val); 
-       };
+ public:
+  IO_Port(int a) : address(a){};
 
-      // OUTW: Wortweise Ausgabe eines Wertes ueber einen I/O-Port.
-      void outw (int val) const
-       { 
-	 ::outw (address, val); 
-       };
+  // OUTB: Byteweise Ausgabe eines Wertes ueber einen I/O-Port.
+  void outb(int val) const { ::outb(address, val); };
 
-      // INB: Byteweises Einlesen eines Wertes ueber einen I/O-Port.
-      int inb () const
-       { 
-	 return ::inb (address); 
-       };
+  // OUTW: Wortweise Ausgabe eines Wertes ueber einen I/O-Port.
+  void outw(int val) const { ::outw(address, val); };
 
-      // INW: Wortweises Einlesen eines Wertes ueber einen I/O-Port.
-      int inw () const
-       { 
-	 return ::inw (address); 
-       };
- };
+  // INB: Byteweises Einlesen eines Wertes ueber einen I/O-Port.
+  int inb() const { return ::inb(address); };
+
+  // INW: Wortweises Einlesen eines Wertes ueber einen I/O-Port.
+  int inw() const { return ::inw(address); };
+};
 
 #endif
