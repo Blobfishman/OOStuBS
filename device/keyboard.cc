@@ -9,9 +9,15 @@
 /*****************************************************************************/
 
 #include "device/keyboard.h"
-#include "machine/cgascr.h"
 #include "machine/pic.h"
 #include "machine/plugbox.h"
+#include "device/cgastr.h"
+
+Keyboard keyboard;
+
+Keyboard::Keyboard() {
+
+}
 
 void Keyboard::plugin() {
   plugbox.assign(Plugbox::keyboard, *this);
@@ -22,8 +28,7 @@ void Keyboard::plugin() {
 void Keyboard::trigger() {
   Key key = this->key_hit();
   if (key.valid()) {
-    CGA_Screen screen;
-    screen.show(0, 0, key.ascii(), 3);
+    kout.show(4, 4, key.ascii(), 7);
   }
   // TODO: Bei Ctrl-Alt-Del ein Reboot auslösen
 }

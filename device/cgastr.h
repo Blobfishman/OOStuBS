@@ -27,5 +27,5 @@ class CGA_Stream : public O_Stream, public CGA_Screen {
   void flush() override;
 };
 
-extern CGA_Stream cga_stream;
+extern CGA_Stream kout;
 #endif

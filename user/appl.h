@@ -18,7 +18,7 @@ class Application
   Application(const Application &copy);  // Verhindere Kopieren
 
  public:
-  /* Hier muesst ihr selbst Code vervollstaendigen */
+  Application();
 
   void action();
 };

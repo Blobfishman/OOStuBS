@@ -20,9 +20,13 @@ class Keyboard : public Gate, public Keyboard_Controller {
   Keyboard(const Keyboard &copy);  // Verhindere Kopieren
 
  public:
+  Keyboard();
   // PLUGIN: 'Anstoepseln' der Tastatur. Ab sofort werden Tasten erkannt.
   void plugin();
+
   void trigger();
 };
+
+extern Keyboard keyboard;
 
 #endif

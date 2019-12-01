@@ -15,7 +15,7 @@
 Panic panic;
 
 void Panic::trigger() {
-  cga_stream << "PANIC: Unexpected Interrupt!";
+  kout << "PANIC: Unexpected Interrupt!";
   CPU cpu;
   cpu.halt();
 }
