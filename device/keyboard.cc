@@ -26,7 +26,7 @@ void Keyboard::plugin() {
 void Keyboard::trigger() {
 	Key key = this->key_hit();
 	if (key.valid()) {
-		if (key.ctrl() & key.alt() & (key.scancode() == Key::scan::del) {
+			if (key.ctrl() & key.alt() & (key.scancode() == Key::scan::del)) {
 			keyboard.reboot();
 		} else {
 			kout.show(4, 4, key.ascii(), 7);
