@@ -42,12 +42,12 @@ void PIC::forbid(int interrupt_device) {
   if (interrupt_device < 8 && interrupt_device >= 0) {
     IO_Port imr(IMR1);
     int val = imr.inb();
-    val |= 0x00 << interrupt_device;
+    val |= 0x01 << interrupt_device;
     imr.outb(val);
   } else if (interrupt_device > 7 && interrupt_device < 16) {
     IO_Port imr(IMR2);
     int val = imr.inb();
-    val |= 0x00 << interrupt_device;
+    val |= 0x01 << interrupt_device;
     imr.outb(val);
   }
   // if interrupt_device out of range ignore it
