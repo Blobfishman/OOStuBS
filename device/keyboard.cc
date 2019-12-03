@@ -12,6 +12,7 @@
 #include "device/cgastr.h"
 #include "machine/pic.h"
 #include "machine/plugbox.h"
+#include "user/appl.h"
 
 Keyboard keyboard;
 
@@ -26,10 +27,19 @@ void Keyboard::plugin() {
 void Keyboard::trigger() {
 	Key key = this->key_hit();
 	if (key.valid()) {
-			if (key.ctrl() & key.alt() & (key.scancode() == Key::scan::del)) {
+		if (key.ctrl() & key.alt() &
+		    (key.scancode() == Key::scan::del)) {
 			keyboard.reboot();
 		} else {
-			kout.show(4, 4, key.ascii(), 7);
+			if(key.ascii() == '1'){
+				flag = false;	
+			}
+			int x, y;
+			kout.getpos(x, y);
+			kout.setpos(5, 10);
+			kout << key.ascii();
+			kout.flush();
+			kout.setpos(x, y);
 		}
 	}
 }

@@ -22,11 +22,25 @@ Application::Application() {
 }
 
 void Application::action() {
-    while(1) {
+	CPU cpu;
+	int i;
+    while(flag) {
         int x,y;
+	++i;
         kout.getpos(x,y);
-        kout << "xxxxxxxxxxXXXXXXXXXXXXxxxxxxxxxxx";
+	kout.setpos(5,5);
+        kout << i;
         kout.flush();
         kout.setpos(x, y);
+    }
+    while(1) {
+	cpu.disable_int();
+        int x,y;
+	--i;
+        kout.getpos(x,y);
+	kout.setpos(5,5);
+        kout << i;
+        kout.flush();
+	cpu.enable_int();
     }
 }

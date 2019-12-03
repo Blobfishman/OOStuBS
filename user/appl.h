@@ -10,6 +10,7 @@
 
 #ifndef __application_include__
 #define __application_include__
+static bool flag=true;
 
 class Application
 
@@ -19,7 +20,6 @@ class Application
 
  public:
   Application();
-
   void action();
 };
 
