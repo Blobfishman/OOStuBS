@@ -32,7 +32,7 @@ void Keyboard::trigger() {
 			keyboard.reboot();
 		} else {
 			if(key.ascii() == '1'){
-				flag = false;	
+                flag = false;	
 			}
 			int x, y;
 			kout.getpos(x, y);

@@ -10,17 +10,15 @@
 
 #ifndef __application_include__
 #define __application_include__
-static bool flag=true;
 
-class Application
+class Application {
+   private:
+    Application(const Application &copy);  // Verhindere Kopieren
 
-{
- private:
-  Application(const Application &copy);  // Verhindere Kopieren
-
- public:
-  Application();
-  void action();
+   public:
+    Application();
+    void action();
 };
 
+extern bool flag;
 #endif

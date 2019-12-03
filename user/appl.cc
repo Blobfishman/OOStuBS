@@ -15,6 +15,8 @@
 #include "device/keyboard.h"
 #include "machine/cpu.h"
 
+bool flag = true;
+
 Application::Application() {
     keyboard.plugin();
     CPU cpu;
@@ -22,25 +24,25 @@ Application::Application() {
 }
 
 void Application::action() {
-	CPU cpu;
-	int i;
-    while(flag) {
-        int x,y;
-	++i;
-        kout.getpos(x,y);
-	kout.setpos(5,5);
+    CPU cpu;
+    int i;
+    while (flag) {
+        int x, y;
+        ++i;
+        kout.getpos(x, y);
+        kout.setpos(5, 5);
         kout << i;
         kout.flush();
         kout.setpos(x, y);
     }
-    while(1) {
-	cpu.disable_int();
-        int x,y;
-	--i;
-        kout.getpos(x,y);
-	kout.setpos(5,5);
+    while (1) {
+        cpu.disable_int();
+        int x, y;
+        --i;
+        kout.getpos(x, y);
+        kout.setpos(5, 5);
         kout << i;
         kout.flush();
-	cpu.enable_int();
+        cpu.enable_int();
     }
 }
