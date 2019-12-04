@@ -288,7 +288,7 @@ void Keyboard_Controller::reboot() {
 //                  (sehr langsam).
 
 void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
-    bool was_masked = pic.is_masked(PIC::keyboard);
+    bool was_masked = pic.is_enabled(PIC::keyboard);
     if (was_masked) {
         pic.forbid(PIC::keyboard);
     }
@@ -311,7 +311,7 @@ void Keyboard_Controller::set_repeat_rate(int speed, int delay) {
 // SET_LED: setzt oder loescht die angegebene Leuchtdiode
 
 void Keyboard_Controller::set_led(char led, bool on) {
-    bool was_masked = pic.is_masked(PIC::keyboard);
+    bool was_masked = pic.is_enabled(PIC::keyboard);
     if (was_masked ) {
         pic.forbid(PIC::keyboard);
     }

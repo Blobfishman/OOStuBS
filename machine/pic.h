@@ -32,7 +32,7 @@ class PIC {
 
   void forbid(int interrupt_device);
 
-  bool is_masked(int interrupt_device);
+  bool is_enabled(int interrupt_device);
 };
 
 extern PIC pic;

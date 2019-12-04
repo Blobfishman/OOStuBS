@@ -23,49 +23,49 @@
 PIC pic;
 
 void PIC::allow(int interrupt_device) {
-  if (interrupt_device < 8 && interrupt_device >= 0) {
-    IO_Port imr(IMR1);
-    int val = imr.inb();
-    val ^= 0x01 << interrupt_device;
-    imr.outb(val);
+    if (interrupt_device < 8 && interrupt_device >= 0) {
+        IO_Port imr(IMR1);
+        int val = imr.inb();
+        val ^= 0x01 << interrupt_device;
+        imr.outb(val);
 
-  } else if (interrupt_device > 7 && interrupt_device < 16) {
-    IO_Port imr(IMR2);
-    int val = imr.inb();
-    val ^= 0x01 << interrupt_device;
-    imr.outb(val);
-  }
-  // if interrupt_device out of range ignore it
+    } else if (interrupt_device > 7 && interrupt_device < 16) {
+        IO_Port imr(IMR2);
+        int val = imr.inb();
+        val ^= 0x01 << (interrupt_device - 8);
+        imr.outb(val);
+    }
+    // if interrupt_device out of range ignore it
 }
 
 void PIC::forbid(int interrupt_device) {
-  if (interrupt_device < 8 && interrupt_device >= 0) {
-    IO_Port imr(IMR1);
-    int val = imr.inb();
-    val |= 0x01 << interrupt_device;
-    imr.outb(val);
-  } else if (interrupt_device > 7 && interrupt_device < 16) {
-    IO_Port imr(IMR2);
-    int val = imr.inb();
-    val |= 0x01 << interrupt_device;
-    imr.outb(val);
-  }
-  // if interrupt_device out of range ignore it
+    if (interrupt_device < 8 && interrupt_device >= 0) {
+        IO_Port imr(IMR1);
+        int val = imr.inb();
+        val |= 0x01 << interrupt_device;
+        imr.outb(val);
+    } else if (interrupt_device > 7 && interrupt_device < 16) {
+        IO_Port imr(IMR2);
+        int val = imr.inb();
+        val |= 0x01 << (interrupt_device - 8);
+        imr.outb(val);
+    }
+    // if interrupt_device out of range ignore it
 }
 
-bool PIC::is_masked(int interrupt_device) {
-  if (interrupt_device < 8 && interrupt_device >= 0) {
-    IO_Port imr(IMR1);
-    int val = imr.inb();
-    int bit = 0x01 << interrupt_device;
-    val &= bit;
-    return val != bit;
-  } else if (interrupt_device > 7 && interrupt_device < 16) {
-    IO_Port imr(IMR2);
-    int val = imr.inb();
-    int bit = 0x01 << interrupt_device;
-    val &= bit;
-    return val != bit;
-  }
-  return false;
+bool PIC::is_enabled(int interrupt_device) {
+    if (interrupt_device < 8 && interrupt_device >= 0) {
+        IO_Port imr(IMR1);
+        int val = imr.inb();
+        int bit = 0x01 << interrupt_device;
+        val &= bit;
+        return val != bit;
+    } else if (interrupt_device > 7 && interrupt_device < 16) {
+        IO_Port imr(IMR2);
+        int val = imr.inb();
+        int bit = 0x01 << (interrupt_device - 8);
+        val &= bit;
+        return val != bit;
+    }
+    return false;
 }
