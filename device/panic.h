@@ -21,7 +21,9 @@ class Panic : public Gate {
  public:
   Panic() {}
 
-  void trigger() override;
+  void epilogue();
+
+  bool prologue();
 };
 
 extern Panic panic;

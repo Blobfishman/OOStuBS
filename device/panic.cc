@@ -14,8 +14,11 @@
 
 Panic panic;
 
-void Panic::trigger() {
-  kout << "PANIC: Unexpected Interrupt!";
-  CPU cpu;
-  cpu.halt();
+void Panic::epilogue() {}
+
+bool Panic::prologue() {
+    kout << "PANIC: Unexpected Interrupt!";
+    CPU cpu;
+    cpu.halt();
+    return false;
 }

@@ -16,15 +16,16 @@
 Guard guard;
 
 void Guard::leave() {
-    retne();
-
-    while(m_epiqueue.is_empty()) {
+    while (m_epiqueue.is_empty()) {
         cpu.disable_int();
-        Gate* gate = (Gate*)m_epiqueue.dequeue();
-        cpu.enable_int(); 
-        gate->epilogue();
+        Gate* gate = m_epiqueue.dequeue();
         gate->queued(false);
+        cpu.enable_int();
+        gate->epilogue();
+        cpu.disable_int();
     }
+    retne();
+    cpu.enable_int();
 }
 
 void Guard::relay(Gate* item) {
@@ -33,8 +34,10 @@ void Guard::relay(Gate* item) {
         return;
     }
     if (m_locked) {
+        cpu.enable_int(); 
         m_epiqueue.enqueue(item);
         item->queued(true);
+        cpu.disable_int(); 
     } else {
         cpu.enable_int();
         item->epilogue();

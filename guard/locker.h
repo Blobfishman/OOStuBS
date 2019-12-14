@@ -18,8 +18,6 @@
 #include "device/cgastr.h"
 #include "machine/cpu.h"
 
-CPU cpu;
-
 class Locker {
    private:
     Locker(const Locker &copy);  // Verhindere Kopieren

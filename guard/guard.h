@@ -29,7 +29,7 @@ class Guard : public Locker {
     void relay(Gate* item);
 
    private:
-    Queue m_epiqueue;
+    Queue<Gate> m_epiqueue;
 };
 
 extern Guard guard;

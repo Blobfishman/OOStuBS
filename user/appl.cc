@@ -17,9 +17,10 @@
 
 bool flag = true;
 
+CPU cpu;
+
 Application::Application() {
     keyboard.plugin();
-    CPU cpu;
     cpu.enable_int();
 }
 
@@ -36,13 +37,11 @@ void Application::action() {
         kout.setpos(x, y);
     }
     while (1) {
-        cpu.disable_int();
         int x, y;
         --i;
         kout.getpos(x, y);
         kout.setpos(5, 5);
         kout << i;
         kout.flush();
-        cpu.enable_int();
     }
 }

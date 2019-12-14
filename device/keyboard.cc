@@ -19,27 +19,34 @@ Keyboard keyboard;
 Keyboard::Keyboard() {}
 
 void Keyboard::plugin() {
-	plugbox.assign(Plugbox::keyboard, *this);
+    plugbox.assign(Plugbox::keyboard, *this);
 
-	pic.allow(PIC::keyboard);
+    pic.allow(PIC::keyboard);
 }
 
-void Keyboard::trigger() {
-	Key key = this->key_hit();
-	if (key.valid()) {
-		if (key.ctrl() & key.alt() &
-		    (key.scancode() == Key::scan::del)) {
-			keyboard.reboot();
-		} else {
-			if(key.ascii() == '1'){
-                flag = false;	
-			}
-			int x, y;
-			kout.getpos(x, y);
-			kout.setpos(5, 10);
-			kout << key.ascii();
-			kout.flush();
-			kout.setpos(x, y);
-		}
-	}
+void Keyboard::epilogue() {
+    Key key;
+    while ((key = m_buffer.consume())) {
+        if (key.ascii() == '1') {
+            flag = false;
+        }
+        int x, y;
+        kout.getpos(x, y);
+        kout.setpos(5, 10);
+        kout << key.ascii();
+        kout.flush();
+        kout.setpos(x, y);
+    }
+}
+
+bool Keyboard::prologue() {
+    Key key = this->key_hit();
+    if (key.valid()) {
+        if (key.ctrl() & key.alt() & (key.scancode() == Key::scan::del)) {
+            keyboard.reboot();
+        }
+        m_buffer.produce(key);
+        return true;
+    }
+    return false;
 }

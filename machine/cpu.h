@@ -36,4 +36,5 @@ class CPU {
   // Prozessor anhalten
   inline void halt() { cpu_halt(); }
 };
+extern CPU cpu;
 #endif
