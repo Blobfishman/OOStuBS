@@ -12,6 +12,7 @@
 /* INCLUDES */
 #include "machine/plugbox.h"
 #include "guard/guard.h"
+#include "machine/cpu.h"
 /* FUNKTIONEN */
 
 extern "C" void guardian(unsigned int slot);

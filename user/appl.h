@@ -19,6 +19,4 @@ class Application {
     Application();
     void action();
 };
-
-extern bool flag;
 #endif

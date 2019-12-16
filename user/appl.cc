@@ -14,8 +14,8 @@
 #include "device/cgastr.h"
 #include "device/keyboard.h"
 #include "machine/cpu.h"
+#include "guard/secure.h"
 
-bool flag = true;
 
 CPU cpu;
 
@@ -25,9 +25,9 @@ Application::Application() {
 }
 
 void Application::action() {
-    CPU cpu;
     int i;
-    while (flag) {
+    while (true) {
+        Secure secure;
         int x, y;
         ++i;
         kout.getpos(x, y);
@@ -35,13 +35,5 @@ void Application::action() {
         kout << i;
         kout.flush();
         kout.setpos(x, y);
-    }
-    while (1) {
-        int x, y;
-        --i;
-        kout.getpos(x, y);
-        kout.setpos(5, 5);
-        kout << i;
-        kout.flush();
     }
 }

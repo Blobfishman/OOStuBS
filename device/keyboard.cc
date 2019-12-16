@@ -27,9 +27,6 @@ void Keyboard::plugin() {
 void Keyboard::epilogue() {
     Key key;
     while ((key = m_buffer.consume())) {
-        if (key.ascii() == '1') {
-            flag = false;
-        }
         int x, y;
         kout.getpos(x, y);
         kout.setpos(5, 10);
