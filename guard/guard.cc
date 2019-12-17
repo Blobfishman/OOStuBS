@@ -38,8 +38,14 @@ void Guard::relay(Gate* item) {
         m_epiqueue.enqueue(item);
         item->queued(true);
     } else {
+        enter();
+        item->queued(true);
         cpu.enable_int();
         item->epilogue();
+        cpu.disable_int();
+        item->queued(false);
+        cpu.enable_int();
+        leave();
         cpu.disable_int();
     }
 }

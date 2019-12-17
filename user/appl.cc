@@ -13,9 +13,8 @@
 #include "user/appl.h"
 #include "device/cgastr.h"
 #include "device/keyboard.h"
-#include "machine/cpu.h"
 #include "guard/secure.h"
-
+#include "machine/cpu.h"
 
 CPU cpu;
 
@@ -25,15 +24,13 @@ Application::Application() {
 }
 
 void Application::action() {
-    int i;
+    int i = 0;
+    int x,y;
+    kout.getpos(x, y);
     while (true) {
         Secure secure;
-        int x, y;
-        ++i;
-        kout.getpos(x, y);
-        kout.setpos(5, 5);
-        kout << i;
-        kout.flush();
         kout.setpos(x, y);
+        kout << i++;
+        kout.flush();
     }
 }

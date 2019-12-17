@@ -17,6 +17,8 @@
 #include "io_port.h"
 
 #define CGA_BASE 0xb8000
+#define CURSOR_LOW 15
+#define CURSOR_HIGH 14
 #define INDEX_REGISTER 0x3d4
 #define DATA_REGISTER 0x3d5
 
@@ -58,11 +60,11 @@ void CGA_Screen::setpos(int x, int y) {
   IO_Port ioData((int)DATA_REGISTER);
 
   // set low byte
-  ioIndex.outb(15);
+  ioIndex.outb(CURSOR_LOW);
   ioData.outb(offset);
 
   // set high byte
-  ioIndex.outb(14);
+  ioIndex.outb(CURSOR_HIGH);
   ioData.outb(offset >> 8);
 }
 
@@ -76,12 +78,12 @@ void CGA_Screen::getpos(int &x, int &y) {
   IO_Port ioData((int)DATA_REGISTER);
 
   int pos = 0;
-  ioIndex.outb(15);
+  ioIndex.outb(CURSOR_LOW);
   pos = ioData.inb();
-  ioIndex.outb(14);
+  ioIndex.outb(CURSOR_HIGH);
   pos = pos | (ioData.inb()) << 8;
-  y = pos / 80;
-  x = pos % 80;
+  y = pos / MAX_COLUMN_COUNT;
+  x = pos % MAX_COLUMN_COUNT;
 }
 
 /**

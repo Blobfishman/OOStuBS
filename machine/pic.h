@@ -21,7 +21,7 @@ class PIC {
  private:
   PIC(const PIC &copy);  // Verhindere Kopieren
  public:
-  PIC() {}
+  PIC(); 
 
   enum {
     timer = 0,
