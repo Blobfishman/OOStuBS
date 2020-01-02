@@ -18,7 +18,7 @@
 
 CPU cpu;
 
-Application::Application() {
+Application::Application() : Coroutine(m_stack) {
     keyboard.plugin();
     cpu.enable_int();
 }

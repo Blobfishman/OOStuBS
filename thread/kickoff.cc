@@ -12,5 +12,11 @@
 /* Ruecksprungadresse interpretiert werden und der Rechner abstuerzen.       */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
+
+#include "thread/coroutine.h"
+
+void kickoff(void *dummy1, void *dummy2, void *dummy3, void *dummy4,
+             void *dummy5, void *dummy6, void *object) {
+    ((Coroutine*)object)->action();
+}
+
