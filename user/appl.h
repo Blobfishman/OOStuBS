@@ -17,7 +17,7 @@ class Application : public Coroutine{
    private:
     Application(const Application &copy);  // Verhindere Kopieren
 
-    char m_stack[4000];
+    char m_stack[1000];
 
    public:
     Application();

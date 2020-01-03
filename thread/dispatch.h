@@ -15,13 +15,19 @@
 #ifndef __dispatch_include__
 #define __dispatch_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-        
+#include "thread/coroutine.h"
+
 class Dispatcher
  {
 private:
+    Coroutine* life_pointer;
       Dispatcher(const Dispatcher &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+public:
+    Dispatcher(){life_pointer = nullptr;};
+    void go (Coroutine& first);
+    void dispatch (Coroutine& next);
+    Coroutine* active(){return life_pointer;};
  };
 
+extern Dispatcher dispatcher;
 #endif

@@ -26,16 +26,13 @@
 ; C Prototyp: void toc_go (struct toc* regs);
 
 toc_go:
-PUSH RBP
-MOV RBP,RSP
-MOV RBX,[RBP + 16]
-MOV R12,[RBP + 16 + r12_offset]
-MOV R13,[RBP + 16 + r13_offset]
-MOV R14,[RBP + 16 + r14_offset]
-MOV R15,[RBP + 16 + r15_offset]
-MOV RBP,[RBP + 16 + rbp_offset]
-MOV RSP,[RBP + 16 + rsp_offset]
-POP RBP
+MOV RBX,rdi
+MOV R12,[rdi + r12_offset]
+MOV R13,[rdi + r13_offset]
+MOV R14,[rdi + r14_offset]
+MOV R15,[rdi + r15_offset]
+MOV RBP,[rdi + rbp_offset]
+MOV RSP,[rdi + rsp_offset]
 RET
 
 ; TOC_SWITCH : Prozessumschaltung. Der aktuelle Registersatz wird
@@ -46,21 +43,20 @@ RET
 ;                              struct toc* reg_then);
 
 toc_switch:
-PUSH RBP
-MOV RBP,RSP
-MOV [RBP + 16],RBX
-MOV [RBP + 16 + r12_offset],R12
-MOV [RBP + 16 + r13_offset],R13
-MOV [RBP + 16 + r14_offset],R14
-MOV [RBP + 16 + r15_offset],R15
-MOV [RBP + 16 + rbp_offset],RBP
-MOV [RBP + 16 + rsp_offset],RSP
-MOV RBX,[RBP + 936]
-MOV R12,[RBP + 936 + r12_offset]
-MOV R13,[RBP + 936 + r13_offset]
-MOV R14,[RBP + 936 + r14_offset]
-MOV R15,[RBP + 936 + r15_offset]
-MOV RBP,[RBP + 936 + rbp_offset]
-MOV RSP,[RBP + 936 + rsp_offset]
-POP RBP
+MOV rdi,rbx
+MOV [rdi + r12_offset],r12
+MOV [rdi + r13_offset],r13
+MOV [rdi + r14_offset],r14
+MOV [rdi + r15_offset],r15
+MOV [rdi + rbp_offset],rbp
+MOV [rdi + rsp_offset],rsp
+
+MOV RBX,rsi
+MOV R12,[rsi + r12_offset]
+MOV R13,[rsi + r13_offset]
+MOV R14,[rsi + r14_offset]
+MOV R15,[rsi + r15_offset]
+MOV RBP,[rsi + rbp_offset]
+MOV RSP,[rsi + rsp_offset]
+ret
 
