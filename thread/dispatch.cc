@@ -16,7 +16,7 @@
 
 void Dispatcher::go(Coroutine& first) {
     life_pointer = &first;
-    life_pointer->go();   
+    life_pointer->go();
 }
 
 void Dispatcher::dispatch(Coroutine& next) {

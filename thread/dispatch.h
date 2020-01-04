@@ -17,17 +17,16 @@
 
 #include "thread/coroutine.h"
 
-class Dispatcher
- {
-private:
+class Dispatcher {
+   private:
     Coroutine* life_pointer;
-      Dispatcher(const Dispatcher &copy); // Verhindere Kopieren
-public:
-    Dispatcher(){life_pointer = nullptr;};
-    void go (Coroutine& first);
-    void dispatch (Coroutine& next);
-    Coroutine* active(){return life_pointer;};
- };
+    Dispatcher(const Dispatcher& copy);  // Verhindere Kopieren
+   public:
+    Dispatcher() { life_pointer = nullptr; };
+    void go(Coroutine& first);
+    void dispatch(Coroutine& next);
+    Coroutine* active() { return life_pointer; };
+};
 
 extern Dispatcher dispatcher;
 #endif

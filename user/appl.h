@@ -10,10 +10,10 @@
 
 #ifndef __application_include__
 #define __application_include__
- 
+
 #include "thread/coroutine.h"
 
-class Application : public Coroutine{
+class Application : public Coroutine {
    private:
     Application(const Application &copy);  // Verhindere Kopieren
 
