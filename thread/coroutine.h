@@ -23,10 +23,10 @@
 
 class Coroutine {
    private:
-    Coroutine(const Coroutine &copy);  // Verhindere Kopieren
+    Coroutine(const Coroutine& copy);  // Verhindere Kopieren
 
     toc m_regs;
-    
+
    public:
     Coroutine(void* tos);
 
@@ -35,7 +35,6 @@ class Coroutine {
     void resume(Coroutine& next);
 
     virtual void action() = 0;
-
 };
 
 #endif

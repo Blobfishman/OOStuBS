@@ -11,16 +11,16 @@
 #ifndef __schedule_include__
 #define __schedule_include__
 
+#include "object/queue.h"
 #include "thread/dispatch.h"
 #include "thread/entrant.h"
-#include "object/queue.h"
-        
-class Scheduler : public Dispatcher 
- {
-private:
-      Scheduler (const Scheduler &copy); // Verhindere Kopieren
-      Queue<Entrant> ready_list;
-public:
+
+class Scheduler : public Dispatcher {
+   private:
+    Scheduler(const Scheduler& copy);  // Verhindere Kopieren
+    Queue<Entrant> ready_list;
+
+   public:
     Scheduler(){};
     void ready(Entrant& that);
 
@@ -30,8 +30,8 @@ public:
 
     void kill(Entrant& that);
 
-    void resume(); 
- };
+    void resume();
+};
 
 extern Scheduler scheduler;
 

@@ -7,8 +7,8 @@ Scheduler scheduler;
 Application app1;
 Application app2;
 
-int main() { 
+int main() {
     scheduler.ready(app1);
     scheduler.ready(app2);
-    scheduler.schedule(); 
+    scheduler.schedule();
 }

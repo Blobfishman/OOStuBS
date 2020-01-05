@@ -32,13 +32,9 @@ void toc_go(struct toc* regs);
 void toc_switch(struct toc* reg_now, struct toc* regs_then);
 }
 
-Coroutine::Coroutine(void* tos) {
-    toc_settle(&m_regs, tos, &kickoff, this);
-}
+Coroutine::Coroutine(void* tos) { toc_settle(&m_regs, tos, &kickoff, this); }
 
-void Coroutine::go() {
-    toc_go(&m_regs);
-}
+void Coroutine::go() { toc_go(&m_regs); }
 
 void Coroutine::resume(Coroutine& next) {
     toc_switch(&this->m_regs, &next.m_regs);
