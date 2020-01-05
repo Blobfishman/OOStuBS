@@ -16,15 +16,11 @@
 #include "device/keyboard.h"
 #include "guard/secure.h"
 #include "machine/cpu.h"
-#include "thread/dispatch.h"
+#include "thread/scheduler.h"
 
 CPU cpu;
-extern Application app1;
-extern Application app2;
-int n = 0;
-int turn = 0;
 
-Application::Application() : Coroutine(m_stack + 1000) {
+Application::Application() : Entrant(m_stack + 1000) {
     keyboard.plugin();
     cpu.enable_int();
 }
@@ -36,20 +32,11 @@ void Application::action() {
     while (true) {
         // Secure secure;
         kout.setpos(x, y);
-        kout << i++ << endl;
+        kout << i++;
         kout.flush();
-
-        if (i == 999) {
-            if (dispatcher.active() == &app1) {
-                y = y + 1;
-                dispatcher.dispatch(app2);
-                i = 0;
-            }
-            if (dispatcher.active() == &app2) {
-                y = y + 1;
-                dispatcher.dispatch(app1);
-                i = 0;
-            }
+        if(i == 9999) {
+            scheduler.resume();
+            i=0;
         }
     }
 }

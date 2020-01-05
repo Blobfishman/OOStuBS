@@ -7,8 +7,35 @@
 /*---------------------------------------------------------------------------*/
 /* Implementierung des Schedulers.                                           */
 /*****************************************************************************/
+#include "thread/scheduler.h"
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+void Scheduler::ready(Entrant& that) {
+    ready_list.enqueue(&that);
+}
+
+void Scheduler::schedule() {
+Entrant* app = ready_list.dequeue();
+    if(app != nullptr) {
+        go(*app);
+    }
+}
+
+void Scheduler::exit() {
+    Entrant* app = ready_list.dequeue();
+    if(app != nullptr) {
+        dispatch(*app);
+    }
+}
+
+void Scheduler::kill(Entrant& that) {
+    ready_list.remove(&that);
+}
+
+void Scheduler::resume() { 
+    Entrant* app_next = ready_list.dequeue();
+    if(app_next != nullptr) {
+        Entrant* app_now = (Entrant*) active();
+        ready_list.enqueue(app_now);
+        dispatch(*app_next);
+    }
+}
