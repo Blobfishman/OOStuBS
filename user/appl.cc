@@ -18,8 +18,6 @@
 #include "machine/cpu.h"
 #include "thread/scheduler.h"
 
-CPU cpu;
-
 Application::Application() : Entrant(m_stack + 1000) {
     keyboard.plugin();
     cpu.enable_int();
@@ -34,9 +32,9 @@ void Application::action() {
         kout.setpos(x, y);
         kout << i++;
         kout.flush();
-        if(i == 9999) {
+        if (i == 9999) {
             scheduler.resume();
-            i=0;
+            i = 0;
         }
     }
 }
