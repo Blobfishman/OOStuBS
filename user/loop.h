@@ -22,9 +22,10 @@ class Loop : public Entrant {
     char m_stack[1000];
     int m_x;
     int m_y;
+    bool m_exit;
 
    public:
-    Loop(int x = 0, int y = 0);
+    Loop(int x = 0, int y = 0, bool ex = false);
     void action();
 };
 

@@ -9,10 +9,12 @@
 CPU cpu;
 Scheduler scheduler;
 Loop loop1(1, 4);
-Loop loop2(1, 6);
+Loop loop2(1, 6, true);
+Application app(&loop1);
 
 int main() {
     scheduler.ready(loop1);
     scheduler.ready(loop2);
+    scheduler.ready(app);
     scheduler.schedule();
 }

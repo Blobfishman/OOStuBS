@@ -18,9 +18,10 @@ class Application : public Entrant {
     Application(const Application &copy);  // Verhindere Kopieren
 
     char m_stack[1000];
+    Entrant *m_kill_target;
 
    public:
-    Application();
+    Application(Entrant* kill_target = nullptr);
     void action();
 };
 #endif

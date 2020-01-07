@@ -21,7 +21,8 @@
 #include "machine/cpu.h"
 #include "thread/scheduler.h"
 
-Loop::Loop(int x, int y) : Entrant(m_stack + 1000), m_x(x), m_y(y) {
+Loop::Loop(int x, int y, bool ex)
+    : Entrant(m_stack + 1000), m_x(x), m_y(y), m_exit(ex) {
     keyboard.plugin();
     cpu.enable_int();
 }
@@ -29,9 +30,11 @@ Loop::Loop(int x, int y) : Entrant(m_stack + 1000), m_x(x), m_y(y) {
 void Loop::action() {
     int i = 0;
     while (true) {
-        // Secure secure;
+        if (i == 50000 && m_exit) {
+            scheduler.exit();
+        }
         kout.setpos(m_x, m_y);
-        kout << i++;
+        kout << "Loop" << i++;
         kout.flush();
         if (i % 9999 == 0) {
             scheduler.resume();

@@ -18,23 +18,27 @@
 #include "machine/cpu.h"
 #include "thread/scheduler.h"
 
-Application::Application() : Entrant(m_stack + 1000) {
+Application::Application(Entrant* kill_target)
+    : Entrant(m_stack + 1000), m_kill_target(kill_target) {
     keyboard.plugin();
     cpu.enable_int();
 }
 
 void Application::action() {
     int i = 0;
-    int x, y;
-    kout.getpos(x, y);
+    int x = 1;
+    int y = 1;
     while (true) {
         // Secure secure;
         kout.setpos(x, y);
-        kout << i++;
+        kout << "A" << i++;
         kout.flush();
-        if (i == 9999) {
+        if (i == 130000 && m_kill_target != nullptr) {
+            scheduler.kill(*m_kill_target);
+            m_kill_target = nullptr;
+        }
+        if (i % 9999 == 0) {
             scheduler.resume();
-            i = 0;
         }
     }
 }
