@@ -22,10 +22,7 @@
 #include "thread/scheduler.h"
 
 Loop::Loop(int x, int y, bool ex)
-    : Entrant(m_stack + 1000), m_x(x), m_y(y), m_exit(ex) {
-    keyboard.plugin();
-    cpu.enable_int();
-}
+    : Entrant(m_stack + 1000), m_x(x), m_y(y), m_exit(ex) {}
 
 void Loop::action() {
     int i = 0;

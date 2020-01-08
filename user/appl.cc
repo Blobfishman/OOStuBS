@@ -19,10 +19,7 @@
 #include "thread/scheduler.h"
 
 Application::Application(Entrant* kill_target)
-    : Entrant(m_stack + 1000), m_kill_target(kill_target) {
-    keyboard.plugin();
-    cpu.enable_int();
-}
+    : Entrant(m_stack + 1000), m_kill_target(kill_target) {}
 
 void Application::action() {
     int i = 0;

@@ -5,6 +5,7 @@
 #include "user/loop.h"
 #include "util/print.h"
 #include "machine/cpu.h"
+#include "device/keyboard.h"
 
 CPU cpu;
 Scheduler scheduler;
@@ -13,6 +14,8 @@ Loop loop2(1, 6, true);
 Application app(&loop1);
 
 int main() {
+    keyboard.plugin();
+    cpu.enable_int();
     scheduler.ready(loop1);
     scheduler.ready(loop2);
     scheduler.ready(app);
