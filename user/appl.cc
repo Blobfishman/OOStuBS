@@ -33,7 +33,7 @@ void Application::action() {
         kout.setpos(x, y);
         kout << "A" << i++;
         kout.flush();
-        if (i == 130000 && m_kill_target != nullptr) {
+        if (i == 300000 && m_kill_target != nullptr) {
             scheduler.kill(*m_kill_target);
             m_kill_target = nullptr;
         }

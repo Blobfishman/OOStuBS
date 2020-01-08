@@ -26,7 +26,7 @@
 ; C Prototyp: void toc_go (struct toc* regs);
 
 toc_go:
-MOV RBX,rdi
+MOV RBX,[rdi + rbx_offset]
 MOV R12,[rdi + r12_offset]
 MOV R13,[rdi + r13_offset]
 MOV R14,[rdi + r14_offset]
@@ -43,7 +43,7 @@ RET
 ;                              struct toc* reg_then);
 
 toc_switch:
-MOV rdi,rbx
+MOV [rdi + rbx_offset],rbx
 MOV [rdi + r12_offset],r12
 MOV [rdi + r13_offset],r13
 MOV [rdi + r14_offset],r14
@@ -51,7 +51,7 @@ MOV [rdi + r15_offset],r15
 MOV [rdi + rbp_offset],rbp
 MOV [rdi + rsp_offset],rsp
 
-MOV RBX,rsi
+MOV RBX,[rsi + rbx_offset]
 MOV R12,[rsi + r12_offset]
 MOV R13,[rsi + r13_offset]
 MOV R14,[rsi + r14_offset]

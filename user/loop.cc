@@ -30,7 +30,7 @@ Loop::Loop(int x, int y, bool ex)
 void Loop::action() {
     int i = 0;
     while (true) {
-        if (i == 50000 && m_exit) {
+        if (i == 100000 && m_exit) {
             scheduler.exit();
         }
         kout.setpos(m_x, m_y);
