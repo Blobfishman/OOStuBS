@@ -27,7 +27,7 @@ void Keyboard::plugin() {
 void Keyboard::epilogue() {
     Key key;
     while ((key = m_buffer.consume())) {
-        kout.show(5, 10, key.ascii(), 3);
+        kout.show(10, 10, key.ascii(), 3);
     }
 }
 

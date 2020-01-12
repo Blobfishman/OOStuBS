@@ -18,7 +18,7 @@
 #include "locker.h"
 #include "object/queue.h"
 
-class Guard : public Locker {
+class Guard : public  Locker{
    private:
     Guard(const Guard& copy);  // Verhindere Kopieren
    public:

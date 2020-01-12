@@ -1,23 +1,33 @@
 /* $Id: main.cc 8485 2017-03-27 11:50:06Z friesel $ */
 
-#include "thread/scheduler.h"
+#include "device/keyboard.h"
+#include "device/watch.h"
+#include "machine/cpu.h"
+#include "syscall/guarded_scheduler.h"
 #include "user/appl.h"
 #include "user/loop.h"
 #include "util/print.h"
-#include "machine/cpu.h"
-#include "device/keyboard.h"
+
+#define STACK_SIZE 4096
 
 CPU cpu;
-Scheduler scheduler;
-Loop loop1(1, 4);
-Loop loop2(1, 6, true);
-Application app(&loop1);
+Watch watch(1000);
+static char stack_loop1[STACK_SIZE];
+static char stack_loop2[STACK_SIZE];
+static char stack_loop3[STACK_SIZE];
+static char stack_app[STACK_SIZE];
+Loop loop1(stack_loop1 + STACK_SIZE, 1);
+Loop loop2(stack_loop2 + STACK_SIZE, 2, true);
+Loop loop3(stack_loop3 + STACK_SIZE, 3);
+Application app(&stack_app + STACK_SIZE, &loop1);
 
 int main() {
-    keyboard.plugin();
-    cpu.enable_int();
     scheduler.ready(loop1);
     scheduler.ready(loop2);
+    scheduler.ready(loop3);
     scheduler.ready(app);
+    keyboard.plugin();
+    watch.windup();
+    cpu.enable_int();
     scheduler.schedule();
 }

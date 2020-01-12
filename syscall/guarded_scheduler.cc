@@ -8,4 +8,34 @@
 /* Systemaufrufschnittstelle zum Scheduler.                                  */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "syscall/guarded_scheduler.h"
+#include "device/watch.h"
+
+Guarded_Scheduler scheduler;
+
+void Guarded_Scheduler::ready(Thread &that) {
+    Secure secure;
+    Scheduler::ready(that);
+}
+
+void Guarded_Scheduler::exit() {
+    Secure secure;
+    watch.rest(); 
+    Scheduler::exit();
+}
+
+void Guarded_Scheduler::kill(Thread &that) {
+    Secure secure;
+    Scheduler::kill(that);
+}
+
+void Guarded_Scheduler::resume() {
+    Secure secure;
+    watch.rest(); 
+    Scheduler::resume();
+}
+ 
+void Guarded_Scheduler::schedule() {
+    Secure secure;
+    Scheduler::schedule();
+}

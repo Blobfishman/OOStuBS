@@ -19,10 +19,10 @@
 #include "device/keyboard.h"
 #include "guard/secure.h"
 #include "machine/cpu.h"
-#include "thread/scheduler.h"
+#include "syscall/guarded_scheduler.h"
 
-Loop::Loop(int x, int y, bool ex)
-    : Entrant(m_stack + 1000), m_x(x), m_y(y), m_exit(ex) {}
+Loop::Loop(void* stack, int x, bool ex)
+    : Thread(stack), m_x(x), m_exit(ex) {}
 
 void Loop::action() {
     int i = 0;
@@ -30,10 +30,9 @@ void Loop::action() {
         if (i == 100000 && m_exit) {
             scheduler.exit();
         }
-        kout.setpos(m_x, m_y);
-        kout << "Loop" << i++;
+        kout << m_x << "Loop" << i++ << endl;
         kout.flush();
-        if (i % 9999 == 0) {
+        if (i % 9999 == 0 && m_exit) {
             scheduler.resume();
         }
     }

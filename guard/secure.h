@@ -21,9 +21,7 @@ class Secure {
    public:
     Secure() { guard.enter(); }
 
-    ~Secure() { 
-        guard.leave(); 
-    }
+    ~Secure() { guard.leave(); }
 };
 
 #endif

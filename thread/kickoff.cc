@@ -13,9 +13,11 @@
 /*****************************************************************************/
 
 #include "thread/coroutine.h"
+#include "guard/guard.h"
 
 void kickoff(void *dummy1, void *dummy2, void *dummy3, void *dummy4,
              void *dummy5, void *dummy6, void *object) {
+    guard.leave();
     ((Coroutine *)object)->action();
 }
 

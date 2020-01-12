@@ -19,7 +19,6 @@ void Guard::leave() {
     Gate* gate;
     cpu.disable_int();
     while ((gate = m_epiqueue.dequeue()) != nullptr) {
-        /* Gate* gate = m_epiqueue.dequeue(); */
         gate->queued(false);
         cpu.enable_int();
         gate->epilogue();
@@ -39,12 +38,9 @@ void Guard::relay(Gate* item) {
         item->queued(true);
     } else {
         enter();
-        item->queued(true);
         cpu.enable_int();
         item->epilogue();
         cpu.disable_int();
-        item->queued(false);
-        cpu.enable_int();
         leave();
         cpu.disable_int();
     }

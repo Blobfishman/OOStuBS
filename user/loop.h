@@ -13,19 +13,18 @@
 #ifndef __loop_include__
 #define __loop_include__
 
-#include "thread/entrant.h"
+#include "syscall/thread.h"
 
-class Loop : public Entrant {
+class Loop : public Thread {
    private:
     Loop(const Loop &copy);  // Verhindere Kopieren
 
-    char m_stack[1000];
     int m_x;
     int m_y;
     bool m_exit;
 
    public:
-    Loop(int x = 0, int y = 0, bool ex = false);
+    Loop(void* stack, int x = 0, bool ex = false);
     void action();
 };
 

@@ -15,6 +15,7 @@
 /*****************************************************************************/
 
 #include "thread/coroutine.h"
+#include "guard/guard.h"
 
 extern void kickoff(void*, void*, void*, void*, void*, void*, void*);
 
