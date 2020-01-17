@@ -16,23 +16,20 @@
 #include "user/loop.h"
 
 #include "device/cgastr.h"
-#include "device/keyboard.h"
-#include "guard/secure.h"
 #include "machine/cpu.h"
 #include "syscall/guarded_scheduler.h"
 
-Loop::Loop(void* stack, int x, bool ex)
-    : Thread(stack), m_x(x), m_exit(ex) {}
+Loop::Loop(void* stack, int x, bool ex) : Thread(stack), m_x(x), m_exit(ex) {}
 
 void Loop::action() {
     int i = 0;
     while (true) {
-        if (i == 100000 && m_exit) {
+        if (i == 10000000 && m_exit) {
             scheduler.exit();
         }
-        kout << m_x << "Loop" << i++ << endl;
-        kout.flush();
-        if (i % 9999 == 0 && m_exit) {
+        kout.show(4,4, m_x + '0', 6);
+        i++;
+        if (i % 100000 == 0 && m_exit) {
             scheduler.resume();
         }
     }

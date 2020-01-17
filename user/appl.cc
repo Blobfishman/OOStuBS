@@ -24,14 +24,11 @@ Application::Application(void* stack, Thread* kill_target)
 void Application::action() {
     int i = 0;
     while (true) {
-        kout << "App" << i++ << endl;
-        kout.flush();
-        if (i == 30000 && m_kill_target != nullptr) {
+        kout.show(4,4, 'A', 3);
+        i++;
+        if (i == 30000000 && m_kill_target != nullptr) {
             scheduler.kill(*m_kill_target);
             m_kill_target = nullptr;
-        }
-        if (i % 9999 == 0) {
-            /* scheduler.resume(); */
         }
     }
 }
