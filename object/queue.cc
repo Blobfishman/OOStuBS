@@ -21,20 +21,20 @@
 /* Fallunterscheidung allerdings nicht verzichtet werden.                    */
 /*****************************************************************************/
 
+#include "object/queue.h"
+
 // ENQUEUE: Das angegebene Element wird an das Ende der Liste angefuegt.
-template<typename T>
-void Queue<T>::enqueue (T* item)
+void Queue::enqueue (Chain* item)
  { 
    item->next = 0;       // Das neue Element besitzt noch keinen Nachfolger.
-   *tail = (Chain*)item;         // Das Element an das Ende der Liste anfuegen
+   *tail = item;         // Das Element an das Ende der Liste anfuegen
    tail = &(item->next); // und den tail Zeiger aktualisieren.
  }
 
 // DEQUEUE: Liefert das erste Element der Liste und entfernt es gleichzeitig
 //          aus dieser. Wenn die Liste gar kein Element enthaelt, wird der
 //          Null-Zeiger zurueckgeliefert.
-template<typename T>
-T* Queue<T>::dequeue ()
+Chain* Queue::dequeue ()
  {
    Chain* item;
 
@@ -47,12 +47,11 @@ T* Queue<T>::dequeue ()
       else                 // sonst nur noch
 	item->next = 0;    // den Eintrag ueber den Nachfolger loeschen.
     }
-   return (T*)item;
+   return item;
  }
 
 // REMOVE: Sucht das angegebene Element in der Liste und entfernt es.
-template<typename T>
-void Queue<T>::remove (T* item)
+void Queue::remove (Chain* item)
  {
    Chain* cur;
 
@@ -79,5 +78,4 @@ void Queue<T>::remove (T* item)
     }
  }
 
-template<typename T> 
-bool Queue<T>::is_empty() { return head == 0; }
+bool Queue::is_empty() { return head == 0; }

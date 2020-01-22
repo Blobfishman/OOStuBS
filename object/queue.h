@@ -16,7 +16,6 @@
 
 #include "object/chain.h"
 
-template<typename T>
 class Queue
  {
 private:
@@ -28,13 +27,11 @@ protected:
 
 public:
       Queue () { head = 0; tail = &head; }
-      void enqueue (T* item);
-      T* dequeue ();
-      void remove (T*);
+      void enqueue (Chain* item);
+      Chain* dequeue ();
+      void remove (Chain*);
       bool is_empty();
  };
-
-#include "object/queue.tpp"
 
 #endif
 

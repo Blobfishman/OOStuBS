@@ -18,7 +18,7 @@ Guard guard;
 void Guard::leave() {
     Gate* gate;
     cpu.disable_int();
-    while ((gate = m_epiqueue.dequeue()) != nullptr) {
+    while ((gate = (Gate*)m_epiqueue.dequeue()) != nullptr) {
         gate->queued(false);
         cpu.enable_int();
         gate->epilogue();

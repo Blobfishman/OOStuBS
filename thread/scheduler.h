@@ -18,7 +18,7 @@
 class Scheduler : public Dispatcher {
    private:
     Scheduler(const Scheduler& copy);  // Verhindere Kopieren
-    Queue<Entrant> ready_list;
+    Queue ready_list;
 
    public:
     Scheduler(){};

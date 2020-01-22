@@ -8,4 +8,16 @@
 /* Liste von Threads, die auf ein Ereignis warten.                           */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "meeting/waitingroom.h"
+
+Waitingroom::Waitingroom() {
+
+}
+
+Waitingroom::~Waitingroom() {
+
+}
+
+void Waitingroom::remove(Customer* customer) {
+
+}
