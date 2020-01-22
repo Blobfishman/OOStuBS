@@ -29,8 +29,6 @@ class Guarded_Scheduler : public Scheduler {
 
     void resume();
 
-    void schedule();
-
 };
 
 extern Guarded_Scheduler scheduler;

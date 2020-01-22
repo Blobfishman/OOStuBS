@@ -22,10 +22,11 @@ Loop loop3(stack_loop3 + STACK_SIZE, 3);
 Application app(&stack_app + STACK_SIZE, &loop1);
 
 int main() {
-    scheduler.ready(loop1);
-    scheduler.ready(loop2);
-    scheduler.ready(loop3);
-    scheduler.ready(app);
+    guard.enter();
+    scheduler.Scheduler::ready(loop1);
+    scheduler.Scheduler::ready(loop2);
+    scheduler.Scheduler::ready(loop3);
+    scheduler.Scheduler::ready(app);
     keyboard.plugin();
     watch.windup();
     cpu.enable_int();
