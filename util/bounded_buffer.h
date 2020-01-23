@@ -9,6 +9,7 @@ class BoundedBuffer {
    public:
     BoundedBuffer() : m_nextin(0), m_nextout(0) {}
     void produce(T data);
+    T peek();
     T consume();
 };
 

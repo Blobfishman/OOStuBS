@@ -9,14 +9,13 @@
 /*****************************************************************************/
 
 #include "device/keyboard.h"
+
 #include "device/cgastr.h"
 #include "machine/pic.h"
 #include "machine/plugbox.h"
 #include "user/appl.h"
 
-Keyboard keyboard;
-
-Keyboard::Keyboard() {}
+Keyboard::Keyboard() : m_semaphore(0) {}
 
 void Keyboard::plugin() {
     plugbox.assign(Plugbox::keyboard, *this);
@@ -25,9 +24,8 @@ void Keyboard::plugin() {
 }
 
 void Keyboard::epilogue() {
-    Key key;
-    while ((key = m_buffer.consume())) {
-        kout.show(10, 10, key.ascii(), 3);
+    if (m_buffer.peek() != Key()) {
+        m_semaphore.signal();
     }
 }
 
@@ -41,4 +39,11 @@ bool Keyboard::prologue() {
         return true;
     }
     return false;
+}
+
+Key Keyboard::getkey() {
+    if (m_buffer.peek() == Key()) {
+        m_semaphore.wait();
+    }
+    return buffer.consume();
 }

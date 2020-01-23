@@ -12,3 +12,9 @@ T BoundedBuffer<T, size>::consume() {
     m_nextout = (m_nextout + 1) % size;
     return result;
 }
+
+template<typename T, int size>
+T BoundedBuffer<T, size>::peek() {
+    if (m_nextout == m_nextin) return T();
+    return m_buffer[m_nextout];
+}

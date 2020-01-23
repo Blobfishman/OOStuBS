@@ -28,5 +28,4 @@ class Dispatcher {
     Coroutine* active() { return life_pointer; };
 };
 
-extern Dispatcher dispatcher;
 #endif

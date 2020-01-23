@@ -8,4 +8,24 @@
 /* Systemaufrufschnittstelle zum Semaphor.                                   */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "syscall/guarded_semaphore.h"
+
+void Guarded_Semaphore::p() {
+    Secure secure;
+    Semaphore::p();
+}
+
+void Guarded_Semaphore::v() {
+    Secure secure;
+    Semaphor::v();
+}
+
+void Guarded_Semaphore::wait() {
+    Secure secure;
+    Semaphore::p();
+}
+
+void Guarded_Semaphore::signal() {
+    Secure secure;
+    Semaphore::v();
+}

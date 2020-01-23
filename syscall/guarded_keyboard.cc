@@ -8,4 +8,13 @@
 /* Systemaufrufschnittstelle zur Tastatur.                                   */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "syscall/guarded_keyboard.h"
+#include "guard/secure.h"
+
+Guarded_Keyboard keyboard;
+
+Key Guarded_Keyboard::getkey() {
+    Secure secure;
+    return Keyboard::getkey();
+}
+

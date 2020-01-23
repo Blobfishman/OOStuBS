@@ -11,14 +11,25 @@
 #ifndef __customer_include__
 #define __customer_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
-        
-class Customer 
-/* Hier muesst ihr selbst Code vervollstaendigen */         
- {
-private:
-    Customer (const Customer &copy); // Verhindere Kopieren
-/* Hier muesst ihr selbst Code vervollstaendigen */          
+#include "meeting/waitingroom.h"
+#include "thread/entrant.h"
+
+class Customer : public Entrant {
+   private:
+    Customer(const Customer& copy);  // Verhindere Kopieren
+
+    Waitingroom* m_waitingroom;
+
+   public:
+    Customer(void* tos) : Entrant(tos), m_waitingroom(nullptr) {}
+
+    void waiting_in(Waitingroom* w) {
+        m_waitingroom = w;
+    }
+
+    Waitingroom* waiting_in() {
+        return m_waitingroom;
+    }
 };
 
 #endif

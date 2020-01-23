@@ -14,6 +14,7 @@
 #include "guard/gate.h"
 #include "machine/key.h"
 #include "machine/keyctrl.h"
+#include "meeting/semaphore.h"
 #include "util/bounded_buffer.h"
 
 class Keyboard : public Gate, public Keyboard_Controller {
@@ -29,10 +30,11 @@ class Keyboard : public Gate, public Keyboard_Controller {
 
     void epilogue();
 
+    Key getkey();
+
    private:
     BoundedBuffer<Key, 10> m_buffer;
+    Semaphore m_semaphore;
 };
-
-extern Keyboard keyboard;
 
 #endif
