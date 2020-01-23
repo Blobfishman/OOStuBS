@@ -23,13 +23,9 @@ class Customer : public Entrant {
    public:
     Customer(void* tos) : Entrant(tos), m_waitingroom(nullptr) {}
 
-    void waiting_in(Waitingroom* w) {
-        m_waitingroom = w;
-    }
+    void waiting_in(Waitingroom* w) { m_waitingroom = w; }
 
-    Waitingroom* waiting_in() {
-        return m_waitingroom;
-    }
+    Waitingroom* waiting_in() { return m_waitingroom; }
 };
 
 #endif

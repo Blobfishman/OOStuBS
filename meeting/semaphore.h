@@ -11,7 +11,9 @@
 #ifndef __Semaphore_include__
 #define __Semaphore_include__
 
-class Semaphore {
+#include "meeting/waitingroom.h"
+
+class Semaphore : public Waitingroom {
    private:
     Semaphore(const Semaphore &copy);  // Verhindere Kopieren
 

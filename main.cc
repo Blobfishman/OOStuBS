@@ -1,12 +1,12 @@
 /* $Id: main.cc 8485 2017-03-27 11:50:06Z friesel $ */
 
-#include "device/keyboard.h"
+#include "syscall/guarded_keyboard.h"
 #include "device/watch.h"
 #include "machine/cpu.h"
-#include "syscall/guarded_scheduler.h"
+#include "syscall/guarded_organizer.h"
 #include "user/appl.h"
 #include "user/loop.h"
-#include "util/print.h"
+#include "guard/secure.h"
 
 #define STACK_SIZE 4096
 
@@ -22,13 +22,13 @@ Loop loop3(stack_loop3 + STACK_SIZE, 3);
 Application app(&stack_app + STACK_SIZE, &loop1);
 
 int main() {
-    guard.enter();
-    scheduler.Scheduler::ready(loop1);
-    scheduler.Scheduler::ready(loop2);
-    scheduler.Scheduler::ready(loop3);
-    scheduler.Scheduler::ready(app);
+    Secure secure;
+    organizer.Scheduler::ready(loop1);
+    organizer.Scheduler::ready(loop2);
+    organizer.Scheduler::ready(loop3);
+    organizer.Scheduler::ready(app);
     keyboard.plugin();
     watch.windup();
     cpu.enable_int();
-    scheduler.schedule();
+    organizer.schedule();
 }

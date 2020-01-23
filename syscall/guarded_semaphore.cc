@@ -9,6 +9,7 @@
 /*****************************************************************************/
 
 #include "syscall/guarded_semaphore.h"
+#include "guard/secure.h"
 
 void Guarded_Semaphore::p() {
     Secure secure;
@@ -17,7 +18,7 @@ void Guarded_Semaphore::p() {
 
 void Guarded_Semaphore::v() {
     Secure secure;
-    Semaphor::v();
+    Semaphore::v();
 }
 
 void Guarded_Semaphore::wait() {

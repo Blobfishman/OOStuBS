@@ -12,7 +12,7 @@
 #ifndef __organizer_include__
 #define __organizer_include__
 
-#include "meeting/waitingroom.cc"
+#include "meeting/waitingroom.h"
 #include "thread/customer.h"
 #include "thread/scheduler.h"
 
@@ -24,7 +24,7 @@ class Organizer : public Scheduler {
 
     void block(Customer& customer, Waitingroom& waitingroom);
     void wakeup(Customer& customer);
-    void kill(Customer& that)
+    void kill(Customer& that);
 };
 
 #endif

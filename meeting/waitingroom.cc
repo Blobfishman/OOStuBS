@@ -15,8 +15,9 @@
 Waitingroom::Waitingroom() {}
 
 Waitingroom::~Waitingroom() {
-    while ((Customer* customer = (Customer*)Queue::dequeue()) != nullptr) {
-        organizer.wakeup(customer);
+    Customer* customer = nullptr;
+    while ((customer = (Customer*)dequeue()) != nullptr) {
+        organizer.wakeup(*customer);
     }
 }
 

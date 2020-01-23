@@ -8,8 +8,9 @@
 /* Semaphore werden zur Synchronisation von Threads verwendet.               */
 /*****************************************************************************/
 
+#include "meeting/semaphore.h"
+
 #include "syscall/guarded_organizer.h"
-#include "thread/dispatch.h"
 
 Semaphore::Semaphore(int c) : m_count(c) {}
 
@@ -17,8 +18,7 @@ void Semaphore::p() {
     if (m_count > 0) {
         m_count--;
     } else {
-        Customer* customer = (Customer*)dispatcher.active();
-        enqueue(customer);
+        Customer* customer = (Customer*)organizer.active();
         organizer.block(*customer, *this);
     }
 }

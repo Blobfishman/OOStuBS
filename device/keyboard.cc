@@ -33,7 +33,7 @@ bool Keyboard::prologue() {
     Key key = this->key_hit();
     if (key.valid()) {
         if (key.ctrl() & key.alt() & (key.scancode() == Key::scan::del)) {
-            keyboard.reboot();
+            reboot();
         }
         m_buffer.produce(key);
         return true;
@@ -45,5 +45,5 @@ Key Keyboard::getkey() {
     if (m_buffer.peek() == Key()) {
         m_semaphore.wait();
     }
-    return buffer.consume();
+    return m_buffer.consume();
 }
