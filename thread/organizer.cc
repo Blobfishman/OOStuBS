@@ -11,6 +11,9 @@
 
 #include "thread/organizer.h"
 
+#include "device/cgastr.h"
+#include "machine/cpu.h"
+
 void Organizer::block(Customer& customer, Waitingroom& waitingroom) {
     waitingroom.enqueue(&customer);
     customer.waiting_in(&waitingroom);
@@ -20,6 +23,13 @@ void Organizer::block(Customer& customer, Waitingroom& waitingroom) {
 void Organizer::wakeup(Customer& customer) {
     ready(customer);
     Waitingroom* room = customer.waiting_in();
+    if (room == nullptr) {
+        // Unerwarteter nullptr
+        kout << "PANIC: Unexpected nullptr object of waitingroom in "
+             << __PRETTY_FUNCTION__;
+        kout.flush();
+        cpu.halt();
+    }
     room->remove(&customer);
     customer.waiting_in(nullptr);
 }
@@ -29,6 +39,13 @@ void Organizer::kill(Customer& that) {
         Scheduler::kill(that);
     } else {
         Waitingroom* room = that.waiting_in();
+        if (room == nullptr) {
+            // Unerwarteter nullptr
+            kout << "PANIC: Unexpected nullptr object of waitingroom in "
+                 << __PRETTY_FUNCTION__;
+            kout.flush();
+            cpu.halt();
+        }
         room->remove(&that);
         that.waiting_in(nullptr);
     }

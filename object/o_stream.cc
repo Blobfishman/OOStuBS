@@ -671,38 +671,18 @@ O_Stream& O_Stream::operator<<(void* pointer) {
         put(hex_64Bit[i]);
     }
 
-    /* unsigned long n = 0; */
-    /* put('0'); */
-    /* put('o'); */
-    /* // fuer oct arraz laenge 11 */
-    /* index = 21; */
-
-    /* // bei negativer zahl array auf 37777777777 setzen */
-    /* if (p < 0) { */
-    /*   n = LONG_MAX_VALUE + p + 1; */
-    /* } else { */
-    /*   n = p; */
-    /* } */
-    /* // zahl in oct umwandeln */
-    /* while (n > 1) { */
-    /*   //+48 fuer ascii */
-    /*   oct_64Bit[index] = n % 8 + 48; */
-    /*   n /= 8; */
-    /*   index--; */
-    /* } */
-    /* while (index >= 0) { */
-    /*   oct_64Bit[index] = '0'; */
-    /*   index--; */
-    /* } */
-    /* // zahl in buffer schreiben */
-    /* for (int i = 0; i < 22; i++) { */
-    /*   put(oct_64Bit[i]); */
-    /* } */
     return *this;
 }
 
 O_Stream& O_Stream::operator<<(char* text) {
     for (char* pos = text; *pos != '\0'; pos++) {
+        put(*pos);
+    }
+    return *this;
+}
+
+O_Stream& O_Stream::operator<<(const char* text) {
+    for (const char* pos = text; *pos != '\0'; pos++) {
         put(*pos);
     }
     return *this;

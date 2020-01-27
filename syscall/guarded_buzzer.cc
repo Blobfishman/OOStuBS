@@ -12,4 +12,20 @@
 
 #include "syscall/guarded_buzzer.h"
 #include "guard/secure.h"
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+
+Guarded_Buzzer::~Guarded_Buzzer() {
+    // Wird nicht gebraucht? 
+    // Es ist nicht möglich den deconstructor von der base class aufzurufen, 
+    // sodass man es mittels Secure absichern koennte
+
+}
+
+void Guarded_Buzzer::set(int ms) {
+    Secure secure;
+    Buzzer::set(ms);
+}
+
+void Guarded_Buzzer::sleep() {
+    Secure secure;
+    Buzzer::sleep();
+}

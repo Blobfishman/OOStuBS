@@ -42,8 +42,7 @@ bool Keyboard::prologue() {
 }
 
 Key Keyboard::getkey() {
-    if (m_buffer.peek() == Key()) {
-        m_semaphore.wait();
-    }
+    m_semaphore.wait();
+
     return m_buffer.consume();
 }

@@ -24,15 +24,10 @@ void Semaphore::p() {
 }
 
 void Semaphore::v() {
-    if (is_empty()) {
-        Customer* customer = (Customer*)dequeue();
-        organizer.wakeup(*customer);
-
+    Chain* item;
+    if ((item = this->dequeue())) {
+        organizer.wakeup(*(Customer*)item);
     } else {
         m_count++;
     }
 }
-
-void Semaphore::wait() { p(); }
-
-void Semaphore::signal() { v(); }

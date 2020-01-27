@@ -14,17 +14,26 @@
 #ifndef __Bell_include__
 #define __Bell_include__
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "object/chain.h"
 
-class Bell
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
- {
-private:
-    Bell(const Bell &copy); // Verhindere Kopieren
-public:
+class Bell : public Chain {
+   private:
+    Bell(const Bell &copy);  // Verhindere Kopieren
+
+    int m_count{0};
+
+   public:
     Bell() {}
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
 
+    void wait(int value) { m_count = value; }
+    int wait() { return m_count; }
+    void tick() {
+        if (m_count > 0) {
+            m_count--;
+        }
+    }
+    bool run_down() { return m_count > 0; }
+    virtual void ring() = 0;
 };
 
 #endif

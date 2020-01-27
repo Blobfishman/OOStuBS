@@ -71,6 +71,7 @@ class O_Stream : public Stringbuffer {
 
   O_Stream& operator<<(void* pointer);
   O_Stream& operator<<(char* text);
+  O_Stream& operator<<(const char* text);
   O_Stream& operator<<(O_Stream& (*fkt)(O_Stream&));
 };
 

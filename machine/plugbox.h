@@ -21,19 +21,19 @@
 extern Panic panic;
 
 class Plugbox {
- private:
-  Plugbox(const Plugbox& copy);  // Verhindere Kopieren
+   private:
+    Plugbox(const Plugbox& copy);  // Verhindere Kopieren
 
-  Gate* m_slots[PLUGBOX_SLOT_COUNT];
+    Gate* m_slots[PLUGBOX_SLOT_COUNT];
 
- public:
-  Plugbox();
+   public:
+    Plugbox();
 
-  enum { timer = 32, keyboard = 33 };
+    enum { timer = 32, keyboard = 33 };
 
-  void assign(unsigned int slot, Gate& gate);
+    void assign(unsigned int slot, Gate& gate);
 
-  Gate& report(unsigned int slot);
+    Gate& report(unsigned int slot);
 };
 
 extern Plugbox plugbox;

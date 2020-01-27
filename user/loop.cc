@@ -16,9 +16,14 @@
 #include "user/loop.h"
 
 #include "device/cgastr.h"
-#include "machine/cpu.h"
 
 Loop::Loop(void* stack, int x, bool ex) : Thread(stack), m_x(x), m_exit(ex) {}
 
 void Loop::action() {
+    int i = 0;
+    kout << __PRETTY_FUNCTION__ << endl;
+    kout.flush();
+    while (true) {
+        kout.show(8, 8, m_x + '0', m_x);
+    }
 }

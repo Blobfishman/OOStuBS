@@ -22,10 +22,10 @@ class Semaphore : public Waitingroom {
    public:
     Semaphore(int c);
 
-    inline void p();
-    inline void v();
-    void wait();
-    void signal();
+    void p();
+    void v();
+    inline void wait() { p(); }
+    inline void signal() { v(); }
 };
 
 #endif

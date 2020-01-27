@@ -15,6 +15,6 @@ T BoundedBuffer<T, size>::consume() {
 
 template<typename T, int size>
 T BoundedBuffer<T, size>::peek() {
-    if (m_nextout == m_nextin) return T();
+    if ((m_nextin + 1) % size == m_nextout) return T();
     return m_buffer[m_nextout];
 }

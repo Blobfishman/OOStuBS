@@ -13,22 +13,18 @@
 #include "user/appl.h"
 
 #include "device/cgastr.h"
-#include "device/keyboard.h"
-#include "guard/secure.h"
-#include "machine/cpu.h"
+#include "syscall/guarded_keyboard.h"
 #include "syscall/guarded_organizer.h"
 
 Application::Application(void* stack, Thread* kill_target)
     : Thread(stack), m_kill_target(kill_target) {}
 
 void Application::action() {
-    int i = 0;
+    kout << __PRETTY_FUNCTION__ << endl;
+    kout.flush();
     while (true) {
-        kout.show(4,4, 'A', 3);
-        i++;
-        if (i == 30000000 && m_kill_target != nullptr) {
-            organizer.kill(*m_kill_target);
-            m_kill_target = nullptr;
-        }
+        Key key = keyboard.getkey();
+        kout << (char)key;
+        kout.flush();
     }
 }

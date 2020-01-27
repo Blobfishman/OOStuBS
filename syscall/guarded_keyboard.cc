@@ -9,6 +9,7 @@
 /*****************************************************************************/
 
 #include "syscall/guarded_keyboard.h"
+
 #include "guard/secure.h"
 
 Guarded_Keyboard keyboard;

@@ -10,5 +10,39 @@
 /* Glocken befinden sich in einer Queue, die der Gloeckner verwaltet.        */
 /*****************************************************************************/
 
-/* Hier muesst ihr selbst Code vervollstaendigen */ 
+#include "meeting/bellringer.h"
 
+Bellringer bellringer;
+
+void Bellringer::check() {
+    Bell *first_element = (Bell *)first();
+    first_element->tick();
+    while (first_element->run_down()) {
+        remove(first_element);
+        first_element->ring();
+        first_element = (Bell *)first();
+    }
+}
+
+void Bellringer::job(Bell *bell, int ticks) {
+    Bell *cur = (Bell *)first();
+    int t = cur->wait();
+    bool found = false;
+    while (cur->next != nullptr && !found) {
+        cur = (Bell *)cur->next;
+        t += cur->wait();
+        if (t + ((Bell *)cur->next)->wait() >= ticks) {
+            found = true;
+        }
+    }
+    if (!found) {
+        bell->wait(ticks - t);
+    }
+    insert_after(cur, bell);
+}
+
+void Bellringer::cancel(Bell *bell) {
+    Bell *cur = (Bell *)bell->next;
+    cur->wait(cur->wait() + bell->wait());
+    remove(bell);
+}

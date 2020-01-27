@@ -13,7 +13,7 @@
 #include "guard/gate.h"
 #include "machine/pit.h"
 
-static const int INTERRUPT_COUNT_MAX = 500;
+static const int INTERRUPT_COUNT_MAX = 20;
 
 class Watch : public Gate, public PIT {
    private:
