@@ -15,7 +15,6 @@
 #include "machine/cpu.h"
 
 void Organizer::block(Customer& customer, Waitingroom& waitingroom) {
-    waitingroom.enqueue(&customer);
     customer.waiting_in(&waitingroom);
     exit();
 }

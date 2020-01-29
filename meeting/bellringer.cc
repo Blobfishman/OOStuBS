@@ -16,6 +16,9 @@ Bellringer bellringer;
 
 void Bellringer::check() {
     Bell *first_element = (Bell *)first();
+    if (first_element == nullptr) {
+        return;
+    }
     first_element->tick();
     while (first_element->run_down()) {
         remove(first_element);

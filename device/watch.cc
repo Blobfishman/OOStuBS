@@ -12,6 +12,7 @@
 #include "machine/cgascr.h"
 #include "machine/pic.h"
 #include "machine/plugbox.h"
+#include "meeting/bellringer.h"
 #include "syscall/guarded_organizer.h"
 
 void Watch::windup() {
@@ -20,14 +21,14 @@ void Watch::windup() {
 }
 
 bool Watch::prologue() {
-    if (++m_current_time >= INTERRUPT_COUNT_MAX) {
-        m_current_time = 0;
-        return true;
-    } else {
-        return false;
-    }
+    ++m_current_time;
+    return true;
 }
 
-void Watch::epilogue() { 
-    organizer.Scheduler::resume(); 
+void Watch::epilogue() {
+    if (m_current_time >= INTERRUPT_COUNT_MAX) {
+        m_current_time = 0;
+        organizer.Scheduler::resume();
+    }
+    bellringer.check();
 }

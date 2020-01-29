@@ -8,20 +8,24 @@
 /* Implementierung des Schedulers.                                           */
 /*****************************************************************************/
 #include "thread/scheduler.h"
+#include "machine/cpu.h"
+#include "thread/idle_thread.h"
 
 void Scheduler::ready(Entrant& that) { ready_list.enqueue(&that); }
 
 void Scheduler::schedule() {
-    Entrant* app = (Entrant*) ready_list.dequeue();
+    Entrant* app = (Entrant*)ready_list.dequeue();
     if (app != nullptr) {
         go(*app);
     }
 }
 
 void Scheduler::exit() {
-    Entrant* app = (Entrant*) ready_list.dequeue();
+    Entrant* app = (Entrant*)ready_list.dequeue();
     if (app != nullptr) {
         dispatch(*app);
+    } else {
+        dispatch(idle_thread);
     }
 }
 

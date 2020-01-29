@@ -23,9 +23,9 @@ Application app(&stack_app + STACK_SIZE, &loop1);
 
 int main() {
     Secure secure;
-    organizer.Scheduler::ready(loop1);
-    organizer.Scheduler::ready(loop2);
-    organizer.Scheduler::ready(loop3);
+    /* organizer.Scheduler::ready(loop1); */
+    /* organizer.Scheduler::ready(loop2); */
+    /* organizer.Scheduler::ready(loop3); */
     organizer.Scheduler::ready(app);
     keyboard.plugin();
     watch.windup();

@@ -43,6 +43,5 @@ bool Keyboard::prologue() {
 
 Key Keyboard::getkey() {
     m_semaphore.wait();
-
     return m_buffer.consume();
 }

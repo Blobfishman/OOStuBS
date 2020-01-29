@@ -19,6 +19,7 @@ void Semaphore::p() {
         m_count--;
     } else {
         Customer* customer = (Customer*)organizer.active();
+        enqueue(customer);
         organizer.block(*customer, *this);
     }
 }
