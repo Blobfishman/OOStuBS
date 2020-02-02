@@ -27,12 +27,8 @@ class Bell : public Chain {
 
     void wait(int value) { m_count = value; }
     int wait() { return m_count; }
-    void tick() {
-        if (m_count > 0) {
-            m_count--;
-        }
-    }
-    bool run_down() { return m_count > 0; }
+    void tick() { m_count--; }
+    bool run_down() { return m_count <= 0; }
     virtual void ring() = 0;
 };
 

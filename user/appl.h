@@ -20,7 +20,7 @@ class Application : public Thread {
     Thread *m_kill_target;
 
    public:
-    Application(void* stack, Thread* kill_target = nullptr);
+    Application(void* stack);
     void action();
 };
 #endif

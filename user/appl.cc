@@ -16,8 +16,8 @@
 #include "syscall/guarded_keyboard.h"
 #include "syscall/guarded_organizer.h"
 
-Application::Application(void* stack, Thread* kill_target)
-    : Thread(stack), m_kill_target(kill_target) {}
+Application::Application(void* stack)
+    : Thread(stack) {}
 
 void Application::action() {
     kout << __PRETTY_FUNCTION__ << endl;

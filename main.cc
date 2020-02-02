@@ -14,18 +14,15 @@ CPU cpu;
 Watch watch(1000);
 static char stack_loop1[STACK_SIZE];
 static char stack_loop2[STACK_SIZE];
-static char stack_loop3[STACK_SIZE];
 static char stack_app[STACK_SIZE];
-Loop loop1(stack_loop1 + STACK_SIZE, 1);
-Loop loop2(stack_loop2 + STACK_SIZE, 2, true);
-Loop loop3(stack_loop3 + STACK_SIZE, 3);
-Application app(&stack_app + STACK_SIZE, &loop1);
+Loop loop1(stack_loop1 + STACK_SIZE, 7000);
+Loop loop2(stack_loop2 + STACK_SIZE, 15000);
+Application app(&stack_app + STACK_SIZE);
 
 int main() {
     Secure secure;
-    /* organizer.Scheduler::ready(loop1); */
-    /* organizer.Scheduler::ready(loop2); */
-    /* organizer.Scheduler::ready(loop3); */
+    organizer.Scheduler::ready(loop1);
+    organizer.Scheduler::ready(loop2);
     organizer.Scheduler::ready(app);
     keyboard.plugin();
     watch.windup();

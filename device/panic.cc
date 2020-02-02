@@ -18,6 +18,7 @@ void Panic::epilogue() {}
 
 bool Panic::prologue() {
     kout << "PANIC: Unexpected Interrupt!";
+    kout.flush();
     cpu.halt();
     return false;
 }

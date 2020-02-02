@@ -15,12 +15,12 @@
 #include "machine/cpu.h"
 
 void Organizer::block(Customer& customer, Waitingroom& waitingroom) {
+    waitingroom.enqueue(&customer);
     customer.waiting_in(&waitingroom);
-    exit();
+    Scheduler::exit();
 }
 
 void Organizer::wakeup(Customer& customer) {
-    ready(customer);
     Waitingroom* room = customer.waiting_in();
     if (room == nullptr) {
         // Unerwarteter nullptr
@@ -31,6 +31,7 @@ void Organizer::wakeup(Customer& customer) {
     }
     room->remove(&customer);
     customer.waiting_in(nullptr);
+    ready(customer);
 }
 
 void Organizer::kill(Customer& that) {

@@ -16,6 +16,7 @@
 #include "user/loop.h"
 
 #include "device/cgastr.h"
+#include "syscall/guarded_buzzer.h"
 
 Loop::Loop(void* stack, int x, bool ex) : Thread(stack), m_x(x), m_exit(ex) {}
 
@@ -24,6 +25,11 @@ void Loop::action() {
     kout << __PRETTY_FUNCTION__ << endl;
     kout.flush();
     while (true) {
-        kout.show(8, 8, m_x + '0', m_x);
+        Guarded_Buzzer b;
+        b.set(m_x);
+        b.sleep();
+        i += m_x;
+        kout << i << endl;
+        kout.flush();
     }
 }

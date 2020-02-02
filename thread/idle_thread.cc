@@ -10,7 +10,6 @@ Idle_Thread::Idle_Thread(void* stack) : Thread(stack) {}
 
 void Idle_Thread::action() {
     while (true) {
-        cpu.disable_int();
         cpu.idle();
     }
 }

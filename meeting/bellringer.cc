@@ -11,6 +11,8 @@
 /*****************************************************************************/
 
 #include "meeting/bellringer.h"
+#include "device/cgastr.h"
+#include "machine/cpu.h"
 
 Bellringer bellringer;
 
@@ -29,6 +31,11 @@ void Bellringer::check() {
 
 void Bellringer::job(Bell *bell, int ticks) {
     Bell *cur = (Bell *)first();
+    if (cur == nullptr) {
+        bell->wait(ticks);
+        insert_first(bell);
+        return;
+    }
     int t = cur->wait();
     bool found = false;
     while (cur->next != nullptr && !found) {
@@ -45,6 +52,12 @@ void Bellringer::job(Bell *bell, int ticks) {
 }
 
 void Bellringer::cancel(Bell *bell) {
+    if (bell == nullptr) {
+        kout << "PANIC: Unexpected nullptr object of bell in "
+             << __PRETTY_FUNCTION__;
+        kout.flush();
+        cpu.halt();
+    }
     Bell *cur = (Bell *)bell->next;
     cur->wait(cur->wait() + bell->wait());
     remove(bell);

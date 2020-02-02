@@ -11,13 +11,13 @@
 /* INCLUDES */
 
 #include "syscall/guarded_buzzer.h"
+
 #include "guard/secure.h"
 
 Guarded_Buzzer::~Guarded_Buzzer() {
-    // Wird nicht gebraucht? 
-    // Es ist nicht möglich den deconstructor von der base class aufzurufen, 
+    // Wird nicht gebraucht?
+    // Es ist nicht möglich den deconstructor von der base class aufzurufen,
     // sodass man es mittels Secure absichern koennte
-
 }
 
 void Guarded_Buzzer::set(int ms) {

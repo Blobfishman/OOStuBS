@@ -21,14 +21,13 @@ void Watch::windup() {
 }
 
 bool Watch::prologue() {
-    ++m_current_time;
-    return true;
-}
-
-void Watch::epilogue() {
     if (m_current_time >= INTERRUPT_COUNT_MAX) {
         m_current_time = 0;
-        organizer.Scheduler::resume();
+        return true;
     }
+    ++m_current_time;
     bellringer.check();
+    return false;
 }
+
+void Watch::epilogue() { organizer.Scheduler::resume(); }
